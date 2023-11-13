@@ -1,14 +1,15 @@
+#include "gameobject.h"
+
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Shape.hpp>
 
-
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-#include "gameobject.h"
 #include "gamemanager.h"
 #include "windowmanager.h"
+
 
 // constructor
 GameObject::GameObject(float _posX, float _posY, int _radius, float _angle, const sf::Color& color, int _layerIndex)
@@ -49,7 +50,7 @@ const sf::Vector2f& GameObject::GetPosition()
 	return position;
 }
 
-void GameObject::SetPosition(float newPosX, float newPosY, WindowManager oWindow)
+void GameObject::SetPosition(float newPosX, float newPosY, const WindowManager& oWindow)
 {
 	posX = newPosX;
 	posY = newPosY;
@@ -116,7 +117,7 @@ void GameObject::SetLayerIndex(int newLayerIndex)
 	layer = newLayerIndex;
 }
 
-void GameObject::SetMovement(float speed, sf::Vector2f direction, WindowManager oWindow)
+void GameObject::SetMovement(float speed,const sf::Vector2f& direction, const WindowManager& oWindow)
 {
 	float deltaTime = GameManager::getInstance().getDeltaTime();
 	SetDirection(direction);
@@ -163,7 +164,7 @@ bool IsInsideInterval(float value, float valueMin, float valueMax, int angle = 0
 	else return false;
 }
 
-bool GameObject::CheckCollision(GameObject& obj) {
+bool GameObject::CheckCollision( GameObject& obj) {
 
 	sf::Vector2f positionShape1 = GetPosition();
 	sf::Vector2f sizeShape1 = GetSize();
@@ -229,17 +230,17 @@ bool GameObject::CheckCollision(GameObject& obj) {
 	return false;
 }
 
-void GameObject::InCollisionEnter(GameObject* obj)
+void GameObject::InCollisionEnter( GameObject* obj)
 {
 	oGameObject.push_back(obj);
 }
 
-void GameObject::InCollisionStay(GameObject* obj)
+void GameObject::InCollisionStay(const GameObject* obj)
 {
 	std::cout << "collide" << std::endl;
 }	
 
-void GameObject::InCollisionExit(GameObject* obj, std::vector<GameObject*>::iterator it)
+void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it)
 {
 	oGameObject.erase(it);
 }

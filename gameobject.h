@@ -1,12 +1,15 @@
 #pragma once
 
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/System/Vector2.hpp>
 
+#include <vector>
 
 namespace sf 
 {
 	class Shape;
 	class Drawable;
+	class RenderWindow;
 }
 
 class WindowManager;
@@ -27,7 +30,7 @@ public :
 
 	// methods
 	const sf::Vector2f& GetPosition();
-	void SetPosition(float newPosX, float newPosY, WindowManager oWindow);
+	void SetPosition(float newPosX, float newPosY, const WindowManager& oWindow);
 
 	const sf::Vector2f& GetSize();
 	int GetRadius();
@@ -43,7 +46,7 @@ public :
 
 	void SetLayerIndex(int newLayerIndex);
 
-	void SetMovement(float speed, sf::Vector2f direction, WindowManager oWindow);
+	void SetMovement(float speed, const sf::Vector2f& direction, const WindowManager& oWindow);
 
 	const sf::Vector2f& GetDirection();
 	void SetDirection(float newAngle);
@@ -54,16 +57,15 @@ public :
 	const sf::Shape* GetShape();
 	const sf::Drawable& GetDrawable();
 
-	bool CheckCollision(GameObject& obj);
+	bool CheckCollision( GameObject& obj);
 	
-	virtual void InCollisionEnter(GameObject* obj);
-	virtual void InCollisionStay(GameObject* obj);
-	virtual void InCollisionExit(GameObject* obj, std::vector<GameObject*>::iterator it);
-	
+	virtual void InCollisionEnter( GameObject* obj);
+	virtual void InCollisionStay(const GameObject* obj);
+	virtual void InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it);
+
 	//bool CheckCollisionWithCircle(GameObject& obj);
 	
 	void UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX = 0.f, float fAnchorY = 0.f); // canon
-
 
 private : 
 

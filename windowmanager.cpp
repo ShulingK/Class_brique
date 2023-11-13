@@ -1,5 +1,6 @@
-#include <iostream>
 #include "windowmanager.h"
+#include <iostream>
+
 #include <SFML/Graphics.hpp>
 
 #include "gameobject.h"

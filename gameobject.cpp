@@ -11,6 +11,7 @@
 #include "windowmanager.h"
 
 
+
 // constructor
 GameObject::GameObject(float _posX, float _posY, int _radius, float _angle, const sf::Color& color, int _layerIndex)
 {
@@ -22,6 +23,8 @@ GameObject::GameObject(float _posX, float _posY, int _radius, float _angle, cons
 	shape->setPosition(posX, posY);
 	shape->setRotation(angle);
 	shape->setFillColor(color);
+	
+	GameManager::getInstance().Add(this, layer);
 }
 
 GameObject::GameObject(float _posX, float _posY, float _width, float _height, float _angle, const sf::Color& color, int _layerIndex)
@@ -32,6 +35,9 @@ GameObject::GameObject(float _posX, float _posY, float _width, float _height, fl
 	shape->setPosition(posX, posY);
 	shape->setRotation(angle);
 	shape->setFillColor(color);
+
+	GameManager::getInstance().Add(this, layer);
+
 }
 
 // destructor 
@@ -107,15 +113,6 @@ void GameObject::SetRotation(float newAngle, float fAnchorX, float fAnchorY)
 	SetRotation(newAngle);
 }
 
-int GameObject::GetLayerIndex() 
-{
-	return layer;
-}
-
-void GameObject::SetLayerIndex(int newLayerIndex)
-{
-	layer = newLayerIndex;
-}
 
 void GameObject::SetMovement(float speed,const sf::Vector2f& direction, const WindowManager& oWindow)
 {
@@ -144,6 +141,19 @@ void GameObject::SetDirection(sf::Vector2f newDirection)
 	angle = angle_radians * 180.0f / M_PI;
 	SetRotation(angle);
 }
+
+int GameObject::GetLayerIndex()
+{
+	return layer;
+}
+
+void GameObject::SetLayerIndex(int newLayerIndex)
+{
+	layer = newLayerIndex;
+}
+
+
+
 
 const sf::Shape* GameObject::GetShape()
 {
@@ -230,6 +240,7 @@ bool GameObject::CheckCollision( GameObject& obj) {
 	return false;
 }
 
+
 void GameObject::InCollisionEnter( GameObject* obj)
 {
 	oGameObject.push_back(obj);
@@ -237,13 +248,17 @@ void GameObject::InCollisionEnter( GameObject* obj)
 
 void GameObject::InCollisionStay(const GameObject* obj)
 {
-	std::cout << "collide" << std::endl;
+	//std::cout << "collide" << std::endl;
 }	
 
 void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it)
 {
 	oGameObject.erase(it);
 }
+
+
+
+
 
 void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 
 {
@@ -258,6 +273,15 @@ void GameObject::SetOrigin(float originX, float originY)
 {
 	shape->setOrigin(originX, originY);
 }
+
+
+
+
+
+
+
+
+
 
 //bool GameObject::CheckCollisionWithCircle(GameObject& obj)
 //{

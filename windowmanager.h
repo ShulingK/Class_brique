@@ -23,6 +23,7 @@ public :
 
 	const sf::Vector2i& GetWindowSize();
 
+	
 	void Draw(std::vector<GameObject*> ovGameObject);
 };
 

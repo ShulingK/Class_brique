@@ -5,12 +5,12 @@
 
 #include <vector>
 
-namespace sf 
+namespace sf
 {
 	class Shape;
 	class Drawable;
 	class RenderWindow;
-}
+};
 
 class WindowManager;
 

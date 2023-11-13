@@ -237,7 +237,7 @@ void GameObject::InCollisionEnter( GameObject* obj)
 
 void GameObject::InCollisionStay(const GameObject* obj)
 {
-	std::cout << "collide" << std::endl;
+	//std::cout << "collide" << std::endl;
 }	
 
 void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it)
@@ -245,14 +245,14 @@ void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>
 	oGameObject.erase(it);
 }
 
-void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 
-{
-	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-	sf::Vector2f objectPosition = GetPosition();
-	float newAngle = std::atan2(mousePosition.y - objectPosition.y, mousePosition.x - objectPosition.x);
-	angle = newAngle * 180.0f / M_PI;
-	SetRotation(angle - 90, fAnchorX, fAnchorY);
-}
+//void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 
+//{
+//	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+//	sf::Vector2f objectPosition = GetPosition();
+//	float newAngle = std::atan2(mousePosition.y - objectPosition.y, mousePosition.x - objectPosition.x);
+//	angle = newAngle * 180.0f / M_PI;
+//	SetRotation(angle - 90, fAnchorX, fAnchorY);
+//}
 
 void GameObject::SetOrigin(float originX, float originY) 
 {

@@ -135,6 +135,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ball.cpp" />
+    <ClCompile Include="canon.cpp" />
     <ClCompile Include="gameobject.cpp" />
     <ClCompile Include="inputmanager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -143,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.h" />
+    <ClInclude Include="canon.h" />
     <ClInclude Include="gamemanager.h" />
     <ClInclude Include="gameobject.h" />
     <ClInclude Include="inputmanager.h" />

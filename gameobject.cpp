@@ -24,6 +24,7 @@ GameObject::GameObject(float _posX, float _posY, int _radius, float _angle, cons
 	shape->setRotation(angle);
 	shape->setFillColor(color);
 	
+	std::cout << "hello" << std::endl;
 	GameManager::getInstance().Add(this, layer);
 }
 
@@ -37,7 +38,6 @@ GameObject::GameObject(float _posX, float _posY, float _width, float _height, fl
 	shape->setFillColor(color);
 
 	GameManager::getInstance().Add(this, layer);
-
 }
 
 // destructor 
@@ -256,14 +256,14 @@ void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>
 	oGameObject.erase(it);
 }
 
-//void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 
-//{
-//	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-//	sf::Vector2f objectPosition = GetPosition();
-//	float newAngle = std::atan2(mousePosition.y - objectPosition.y, mousePosition.x - objectPosition.x);
-//	angle = newAngle * 180.0f / M_PI;
-//	SetRotation(angle - 90, fAnchorX, fAnchorY);
-//}
+void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 
+{
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+	sf::Vector2f objectPosition = GetPosition();
+	float newAngle = std::atan2(mousePosition.y - objectPosition.y, mousePosition.x - objectPosition.x);
+	angle = newAngle * 180.0f / M_PI;
+	SetRotation(angle - 90, fAnchorX, fAnchorY);
+}
 
 void GameObject::SetOrigin(float originX, float originY) 
 {

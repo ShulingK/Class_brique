@@ -20,6 +20,8 @@ public:
 
 
     void Add(GameObject* obj, int layer);
+    const std::vector<GameObject*>& GetListGameObject();
+
 
 private:
     GameManager() {}

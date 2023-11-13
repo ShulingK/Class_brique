@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="canon.cpp" />
+    <ClCompile Include="gamemanager.cpp" />
     <ClCompile Include="gameobject.cpp" />
     <ClCompile Include="inputmanager.cpp" />
     <ClCompile Include="main.cpp" />

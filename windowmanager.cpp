@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "gamemanager.h"
 #include "gameobject.h"
 
 WindowManager::WindowManager(int _windowWidth, int _windowHeight, const char* _name)
@@ -31,15 +32,14 @@ const sf::Vector2i& WindowManager::GetWindowSize()
 }
 
 
-void WindowManager::Draw(std::vector<GameObject*> ovGameObject)
+void WindowManager::Draw()
 {
-	for (int i = 0; i < ovGameObject.size(); i++)
+	for (int i = 0; i < GameManager::getInstance().GetListGameObject().size(); i++)
 	{
 		std::cout << i<< std::endl;
-		oWindow->draw(ovGameObject[i]->GetDrawable());
+		oWindow->draw(GameManager::getInstance().GetListGameObject()[i]->GetDrawable());
 	}
 }
-
 
 
 WindowManager::~WindowManager()

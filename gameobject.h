@@ -65,7 +65,7 @@ public :
 
 	//bool CheckCollisionWithCircle(GameObject& obj);
 	
-	//void UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX = 0.f, float fAnchorY = 0.f); // canon
+	void UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX = 0.f, float fAnchorY = 0.f); // canon
 
 private : 
 

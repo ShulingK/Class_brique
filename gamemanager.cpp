@@ -12,3 +12,8 @@ void GameManager::Add(GameObject* obj, int layer)
 
 	vGameObject.insert(it, obj);
 }
+
+const std::vector<GameObject*>& GameManager::GetListGameObject()
+{
+	return vGameObject;
+}

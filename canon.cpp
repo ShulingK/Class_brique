@@ -10,7 +10,7 @@
 #include <math.h>
 
 
-Canon::Canon(float _posX, float _posY, float _width, int angle, float _height,const sf::Color color, WindowManager* oWindow)
+Canon::Canon(float _posX, float _posY, float _width, int angle, float _height,const sf::Color color, WindowManager* oWindow ,int layer)
     : GameObject(_posX, _posY, _width, angle, _height, color ),windowManager(oWindow)
 {
 	
@@ -29,10 +29,10 @@ void Canon::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAncho
 void Canon::ShootBall(const WindowManager& oWindow)
 {
 	// Créer un nouvel objet Ball au centre de la fenêtre
-	Ball* oBall = new Ball(windowManager->GetWindowSize().x / 2, windowManager->GetWindowSize().y - 50, 25, 0.f, sf::Color::Blue, windowManager);
+	Ball* oBall = new Ball(windowManager->GetWindowSize().x / 2, windowManager->GetWindowSize().y - 50, 25, 0.f, sf::Color::Blue, windowManager,2);
 	std::cout << "clikouclikou" << std::endl;
 	oBall->SetDirection(GetDirection());
-	oBall->SetMovement(10.f, oBall->GetDirection(), oWindow);
+	oBall->SetMovement(10.f, oBall->GetDirection (), oWindow);
 	
 }
 

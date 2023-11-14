@@ -19,7 +19,7 @@ Brick::Brick(int _layerIndex, int _life, int _index)
 
 sf::Color Brick::SetColorBrick(int _life)
 {
-
+	std::cout << _life;
 	switch (_life)
 	{
 	case 5: 

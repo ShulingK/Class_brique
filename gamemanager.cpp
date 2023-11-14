@@ -60,7 +60,7 @@ void GameManager::update()
 	deltaTime = clock.restart();
 	for (GameObject* obj : vGameObject) 
 	{
-		std::cout << obj->GetDirection().x << " et speed : " << obj->speed << std::endl;
+		//std::cout << obj->GetDirection().x << " et speed : " << obj->speed << std::endl;
 		(*obj).UpdateMovement();
 	}
 }

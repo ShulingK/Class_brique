@@ -14,7 +14,7 @@ void GameManager::LevelLoader(const char* path)
 
 	if (level)
 	{
-		char _char;  // notre variable où sera stocké le caractère
+		char _char;  // notre variable oï¿½ sera stockï¿½ le caractï¿½re
 		int index = 0;
 
 		while (level.get(_char))
@@ -55,3 +55,12 @@ const vector<GameObject*>& GameManager::GetListGameObject()
 	return vGameObject;
 }
 
+void GameManager::update()
+{
+	deltaTime = clock.restart();
+	for (GameObject* obj : vGameObject) 
+	{
+		std::cout << obj->GetDirection().x << " et speed : " << obj->speed << std::endl;
+		(*obj).UpdateMovement();
+	}
+}

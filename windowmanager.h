@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Window/Mouse.hpp>
 
 const int DEFAULT_WIDTH = 800;
 const int DEFAULT_HEIGHT = 420;

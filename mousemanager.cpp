@@ -1,4 +1,5 @@
 #include "mousemanager.h"
+#include <SFML/Window/Mouse.hpp>
 
 //mouse manager
 MouseManager::MouseManager(sf::RenderWindow& _window) : window(_window) {}

@@ -21,6 +21,8 @@ int main(int argc, char** argv)
     InputManager inputManager(oRenderWindow);
 
     GameManager::getInstance().LevelLoader("C:\\Users\\timbert\\Documents\\GitHub\\Class_brique\\Level1.txt");
+    MouseManager mouseManager(oRenderWindow);
+
 
     for (int i = 0; i < 40; i++)
     {
@@ -28,8 +30,19 @@ int main(int argc, char** argv)
     }
     //Creation GameObject
     GameObject* oRect = new GameObject(250, 250, 20.0f, 200.0f, 0.0f, sf::Color::Red, 1);
-    /*GameObject* oRect2 = new GameObject(400, 200, 25.f, 25.f, 0.0f, sf::Color::Yellow, 50);
-    GameObject* oRect3 = new GameObject(375, 200, 25.f, 25.f, 45.0f, sf::Color::Green);*/
+    //GameObject oRect(250, 250, 20.0f, 200.0f, 0.0f, sf::Color::Red, 1);
+    GameObject* oRect2 = new GameObject(400, 200, 25.f, 25.f, 0.0f, sf::Color::Yellow, 50);
+    GameObject* oRect3 = new GameObject(375, 200, 25.f, 25.f, 45.0f, sf::Color::Green);
+    Canon* oRect4 = new Canon(oWindow->GetWindowSize().x / 2, oWindow->GetWindowSize().y - 25, 25.f, 25.f, 0.f,sf::Color::Magenta,oWindow);
+    //Ball* oBall = new Ball(oWindow->GetWindowSize().x / 2, oWindow->GetWindowSize().y - 25, 25, 0.f ,sf::Color::Blue);
+
+    /*GameObject* oRect = new GameObject(250, 250, 20.0f, 200.0f, 0.0f, sf::Color::Red, 1);
+    GameObject* oRect2 = new GameObject(400, 200, 25.f, 25.f, 0.0f, sf::Color::Yellow);
+    GameObject* oRect3 = new GameObject(375, 200, 25.f, 25.f, 45.0f, sf::Color::Green);
+    Ball* oBall = new Ball(500, 100, 25, 0.f, sf::Color::Blue);
+    Canon* oRect4 = new Canon( DEFAULT_HEIGHT - 45, DEFAULT_WIDTH/2 , 25.f, 25.f, 45.0f, sf::Color::Magenta);*/
+
+   
 
     //GameLoop
     while (oRenderWindow.isOpen())
@@ -41,6 +54,20 @@ int main(int argc, char** argv)
         sf::Event oEvent;
         while (oRenderWindow.pollEvent(oEvent))
         {
+            //sf::Vector2i oMouse = sf::Mouse::getPosition(oWindow);
+
+            if (mouseManager.isMouseClicked(sf::Mouse::Left)) 
+            {
+                (*oRect4).ShootBall(*oWindow);
+            }
+
+            //(oRect4)->ShootBall(oMouse);
+            (*oRect4).GetDirection();
+            sf::Vector2f BallDirection = sf::Vector2f((*oRect4).GetDirection().x, (*oRect4).GetDirection().x);
+            //(*oBall).SetDirection(BallDirection);
+            //std::cout << (BallDirection.x , BallDirection.y) << std::endl;
+            (*oRect4).UpdateRotationToMousePosition(oRenderWindow);
+            //(*oBall).SetMovement(10.0f, BallDirection,*oWindow);
             inputManager.InputHandler(oEvent, oRenderWindow);
             if (oEvent.type == sf::Event::Closed)
                 oRenderWindow.close();

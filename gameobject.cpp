@@ -113,15 +113,27 @@ void GameObject::SetRotation(float newAngle, float fAnchorX, float fAnchorY)
 }
 
 
-void GameObject::SetMovement(float speed,const sf::Vector2f& direction, const WindowManager& oWindow)
+void GameObject::SetMovement(float _speed,const sf::Vector2f& direction, const WindowManager& _oWindow)
+{
+	oWindow = (&_oWindow);
+	speed = _speed;
+	float deltaTime = GameManager::getInstance().getDeltaTime();
+	SetDirection(direction);
+	SetPosition(posX + direction.x * deltaTime * speed, posY + direction.y * deltaTime * speed, *oWindow);
+}
+
+void GameObject::UpdateMovement()
 {
 	float deltaTime = GameManager::getInstance().getDeltaTime();
 	SetDirection(direction);
-	SetPosition(posX + direction.x * deltaTime * speed, posY + direction.y * deltaTime * speed, oWindow);
+	SetPosition(posX + direction.x * deltaTime * speed, posY + direction.y * deltaTime * speed, *oWindow);
 }
+
+
 
 const sf::Vector2f& GameObject::GetDirection()
 {
+	//std::cout << "direction" << std::endl;
 	return direction;
 }
 

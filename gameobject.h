@@ -47,6 +47,7 @@ public :
 	void SetLayerIndex(int newLayerIndex);
 
 	void SetMovement(float speed, const sf::Vector2f& direction, const WindowManager& oWindow);
+	void UpdateMovement();
 
 	const sf::Vector2f& GetDirection();
 	void SetDirection(float newAngle);
@@ -66,14 +67,14 @@ public :
 	//bool CheckCollisionWithCircle(GameObject& obj);
 	
 	void UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX = 0.f, float fAnchorY = 0.f); // canon
-
+	float speed = 0.f;
 private : 
 
 	int radius = 0, layer;
 	float width = 0, height = 0, angle, posX, posY;
 
 	sf::Vector2f direction;
-
+	const WindowManager* oWindow;
 	std::vector<GameObject*> oGameObject;
 
 	sf::Shape* shape;

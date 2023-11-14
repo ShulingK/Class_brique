@@ -19,6 +19,8 @@ int main(int argc, char** argv)
     //Input
     InputManager inputManager(oRenderWindow);
 
+    MouseManager mouseManager(oRenderWindow);
+
 
 
     //Cr�ation GameObject
@@ -27,6 +29,8 @@ int main(int argc, char** argv)
     //GameObject oRect(250, 250, 20.0f, 200.0f, 0.0f, sf::Color::Red, 1);
     GameObject* oRect2 = new GameObject(400, 200, 25.f, 25.f, 0.0f, sf::Color::Yellow, 50);
     GameObject* oRect3 = new GameObject(375, 200, 25.f, 25.f, 45.0f, sf::Color::Green);
+    Canon* oRect4 = new Canon(oWindow->GetWindowSize().x / 2, oWindow->GetWindowSize().y - 25, 25.f, 25.f, 0.f,sf::Color::Magenta,oWindow);
+    //Ball* oBall = new Ball(oWindow->GetWindowSize().x / 2, oWindow->GetWindowSize().y - 25, 25, 0.f ,sf::Color::Blue);
 
     /*GameObject* oRect = new GameObject(250, 250, 20.0f, 200.0f, 0.0f, sf::Color::Red, 1);
     GameObject* oRect2 = new GameObject(400, 200, 25.f, 25.f, 0.0f, sf::Color::Yellow);
@@ -46,6 +50,20 @@ int main(int argc, char** argv)
         sf::Event oEvent;
         while (oRenderWindow.pollEvent(oEvent))
         {
+            //sf::Vector2i oMouse = sf::Mouse::getPosition(oWindow);
+
+            if (mouseManager.isMouseClicked(sf::Mouse::Left)) 
+            {
+                (*oRect4).ShootBall(*oWindow);
+            }
+
+            //(oRect4)->ShootBall(oMouse);
+            (*oRect4).GetDirection();
+            sf::Vector2f BallDirection = sf::Vector2f((*oRect4).GetDirection().x, (*oRect4).GetDirection().x);
+            //(*oBall).SetDirection(BallDirection);
+            //std::cout << (BallDirection.x , BallDirection.y) << std::endl;
+            (*oRect4).UpdateRotationToMousePosition(oRenderWindow);
+            //(*oBall).SetMovement(10.0f, BallDirection,*oWindow);
             inputManager.InputHandler(oEvent, oRenderWindow);
             if (oEvent.type == sf::Event::Closed)
                 oRenderWindow.close();
@@ -71,7 +89,6 @@ int main(int argc, char** argv)
         (*oRect3).CheckCollision(*oRect2);
         //oRect2.SetMovement(10.0f, sf::Vector2f(2.f, 1.f), *oWindow);
         (*oRect).UpdateRotationToMousePosition(oRenderWindow, (*oRect).GetSize().x / 2);
-
         (*oRect3).CheckCollision(*oRect2);
         //oRect.SetMovement(10.0f, sf::Vector2f(2.f, 1.f));
         //(*oRect4).UpdateRotationToMousePosition(oRenderWindow, (*oRect).GetSize().x / 2);

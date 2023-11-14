@@ -11,9 +11,7 @@ public:
         static GameManager instance; // Crée une instance unique
         return instance;
     }
-    void update() {
-        deltaTime = clock.restart();
-    }
+    void update();
     float getDeltaTime() const {
         return deltaTime.asSeconds();
     }

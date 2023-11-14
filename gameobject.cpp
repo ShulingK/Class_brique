@@ -191,13 +191,7 @@ bool GameObject::CheckCollision( GameObject& obj) {
 	sf::Vector2f sizeShape1 = GetSize();
 	sf::Vector2f positionShape2 = obj.GetShape()->getPosition();
 	sf::Vector2f sizeShape2 = obj.GetSize();
-
-	if (obj.GetRadius() > 0)
-	{
-		// Si c'est un cercle, utiliser la m�thode CheckCollisionWithCircle
-		//return CheckCollisionWithCircle(obj);
-	}
-	else 
+ 
 	if ( GetLayerIndex() == obj.GetLayerIndex())
 	{
 
@@ -280,20 +274,3 @@ void GameObject::SetOrigin(float originX, float originY)
 {
 	shape->setOrigin(originX, originY);
 }
-
-
-
-
-
-//bool GameObject::CheckCollisionWithCircle(GameObject& obj)
-//{
-//	// R�cup�rer les centres des deux cercles
-//	sf::Vector2f center1 = GetPosition() + sf::Vector2f(GetRadius(), GetRadius());
-//	sf::Vector2f center2 = obj.GetPosition() + sf::Vector2f(obj.GetRadius(), obj.GetRadius());
-//
-//	// Calculer la distance entre les deux centres
-//	float distance = std::sqrt(std::pow(center2.x - center1.x, 2) + std::pow(center2.y - center1.y, 2));
-//
-//	// V�rifier la collision en fonction des rayons
-//	return distance < (GetRadius() + obj.GetRadius());
-//}

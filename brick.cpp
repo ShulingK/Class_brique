@@ -19,7 +19,6 @@ Brick::Brick(int _layerIndex, int _life, int _index)
 
 sf::Color Brick::SetColorBrick(int _life)
 {
-	std::cout << _life;
 	switch (_life)
 	{
 	case 5: 
@@ -64,17 +63,12 @@ void Brick::SetLife(int _life)
 
 void Brick::DecrementLife()
 {
-	life--;
-
 	if (life == 0)
 	{
-		//const std::vector<GameObject*>& gameObjects = GameManager::getInstance().GetListGameObject();
-
-		//gameObjects.erase(std::remove_if(gameObjects.begin(), gameObjects.end(),
-		//	[this](const GameObject* obj) { return this == obj; }), gameObjects.end());
-
-		//delete this;
-		 
-		std::cout << "il existe plus";
+		life--;
+	}
+	else
+	{
+		std::cout << "ERROR 404" << std::endl;
 	}
 }

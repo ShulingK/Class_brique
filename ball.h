@@ -1,8 +1,8 @@
 #pragma once
-#include <SFML/Graphics/Color.hpp>
 #include "gameobject.h"
-#include "windowmanager.h"
+
 class MouseManager;
+
 class Ball : public GameObject
 {
 public:
@@ -11,13 +11,9 @@ public:
 
     void SetWindowManager(WindowManager* oWindow);
     void SetDefaultPosition(/*float posX, float posY*/WindowManager* oWindow);
-    void Spawn();
-    
 
     // Destructor
     ~Ball();
-
-    // Ajoutez d'autres méthodes spécifiques à la classe Ball si nécessaire
 
 private:
     sf::Vector2f defaultPosition;

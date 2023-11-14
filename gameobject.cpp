@@ -1,16 +1,11 @@
 #include "gameobject.h"
-
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Shape.hpp>
-
 #define _USE_MATH_DEFINES
 #include <math.h>
-
 #include "gamemanager.h"
 #include "windowmanager.h"
-
-
 
 // constructor
 GameObject::GameObject(float _posX, float _posY, int _radius, float _angle, const sf::Color& _color, int _layerIndex)
@@ -44,9 +39,6 @@ GameObject::~GameObject()
 {
 	delete shape;
 }
- 
-
-
 
 // Methods Get / Set Variables
 const sf::Vector2f& GameObject::GetPosition()
@@ -63,16 +55,11 @@ void GameObject::SetPosition(float newPosX, float newPosY, const WindowManager& 
 	shape->setPosition(posX, posY);
 }
 
-// oWindow.GetWindowSize().x * posX / DEFAULT_WIDTH, oWindow.GetWindowSize().y * posY / DEFAULT_HEIGHT
-
-
-
 const sf::Vector2f& GameObject::GetSize()
 {
 	sf::Vector2f size(width, height);
 	return size;
 }
-
 
 int GameObject::GetRadius()
 {
@@ -86,7 +73,6 @@ void GameObject::SetSize(float newWidth, float newHeight)
 
 	shape->setScale(newWidth ,newHeight);
 }
-
 
 void GameObject::SetSize(int newRadius)
 {
@@ -105,13 +91,11 @@ void GameObject::SetRotation(float newAngle)
 	shape->setRotation(angle);
 }
 
-
 void GameObject::SetRotation(float newAngle, float fAnchorX, float fAnchorY)
 {
 	SetOrigin(fAnchorX, fAnchorY);
 	SetRotation(newAngle);
 }
-
 
 void GameObject::SetMovement(float _speed,const sf::Vector2f& direction, const WindowManager& _oWindow)
 {
@@ -128,7 +112,6 @@ void GameObject::UpdateMovement()
 	SetDirection(direction);
 	SetPosition(posX + direction.x * deltaTime * speed, posY + direction.y * deltaTime * speed, *oWindow);
 }
-
 
 
 const sf::Vector2f& GameObject::GetDirection()
@@ -163,14 +146,10 @@ void GameObject::SetLayerIndex(int newLayerIndex)
 	layer = newLayerIndex;
 }
 
-
-
-
 const sf::Shape* GameObject::GetShape()
 {
 	return shape;
 }
-
 
 const sf::Drawable& GameObject::GetDrawable()
 {
@@ -193,10 +172,7 @@ bool GameObject::CheckCollision( GameObject& obj) {
 	sf::Vector2f sizeShape2 = obj.GetSize();
 
 	if (obj.GetRadius() > 0)
-	{
-		// Si c'est un cercle, utiliser la m�thode CheckCollisionWithCircle
-		//return CheckCollisionWithCircle(obj);
-	}
+	{}
 	else 
 	if ( GetLayerIndex() == obj.GetLayerIndex())
 	{
@@ -251,7 +227,6 @@ bool GameObject::CheckCollision( GameObject& obj) {
 	return false;
 }
 
-
 void GameObject::InCollisionEnter( GameObject* obj)
 {
 	oGameObject.push_back(obj);
@@ -267,33 +242,16 @@ void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>
 	oGameObject.erase(it);
 }
 
-void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 
-{
-	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-	sf::Vector2f objectPosition = GetPosition();
-	float newAngle = std::atan2(mousePosition.y - objectPosition.y, mousePosition.x - objectPosition.x);
-	angle = newAngle * 180.0f / M_PI;
-	SetRotation(angle - 90, fAnchorX, fAnchorY);
-}
+//void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 
+//{
+//	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+//	sf::Vector2f objectPosition = GetPosition();
+//	float newAngle = std::atan2(mousePosition.y - objectPosition.y, mousePosition.x - objectPosition.x);
+//	angle = newAngle * 180.0f / M_PI;
+//	SetRotation(angle - 90, fAnchorX, fAnchorY);
+//}
 
 void GameObject::SetOrigin(float originX, float originY) 
 {
 	shape->setOrigin(originX, originY);
 }
-
-
-
-
-
-//bool GameObject::CheckCollisionWithCircle(GameObject& obj)
-//{
-//	// R�cup�rer les centres des deux cercles
-//	sf::Vector2f center1 = GetPosition() + sf::Vector2f(GetRadius(), GetRadius());
-//	sf::Vector2f center2 = obj.GetPosition() + sf::Vector2f(obj.GetRadius(), obj.GetRadius());
-//
-//	// Calculer la distance entre les deux centres
-//	float distance = std::sqrt(std::pow(center2.x - center1.x, 2) + std::pow(center2.y - center1.y, 2));
-//
-//	// V�rifier la collision en fonction des rayons
-//	return distance < (GetRadius() + obj.GetRadius());
-//}

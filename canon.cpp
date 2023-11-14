@@ -1,11 +1,7 @@
 #include "canon.h"
-#include "gameobject.h"
 #include "windowmanager.h"
-#include "mousemanager.h"
 #include "ball.h"
 #include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Shape.hpp>
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -35,9 +31,6 @@ void Canon::ShootBall(const WindowManager& oWindow)
 	oBall->SetMovement(10.f, oBall->GetDirection (), oWindow);
 	
 }
-
-
-
 
 Canon::~Canon()
 {

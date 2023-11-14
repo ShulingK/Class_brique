@@ -19,6 +19,10 @@ public:
     }
 
 
+    void LevelLoader(const char* path);
+    int* GetLife();
+
+
     void Add(GameObject* obj, int layer);
     const std::vector<GameObject*>& GetListGameObject();
 
@@ -26,8 +30,9 @@ public:
 private:
     GameManager() {}
 
-    std::vector<GameObject*> vGameObject;
+    int* lifeOfBrick = new int[40];
 
+    std::vector<GameObject*> vGameObject;
 
     sf::Clock clock;
     sf::Time deltaTime;

@@ -13,7 +13,7 @@
 
 
 // constructor
-GameObject::GameObject(float _posX, float _posY, int _radius, float _angle, const sf::Color& color, int _layerIndex)
+GameObject::GameObject(float _posX, float _posY, int _radius, float _angle, const sf::Color& _color, int _layerIndex)
 {
 	posX = _posX, posY = _posY, radius = _radius, angle = _angle, layer = _layerIndex, width = 0, height = 0;
 	direction.x = std::cos(angle * M_PI / 180.0);
@@ -22,20 +22,19 @@ GameObject::GameObject(float _posX, float _posY, int _radius, float _angle, cons
 	shape = new sf::CircleShape (radius);
 	shape->setPosition(posX, posY);
 	shape->setRotation(angle);
-	shape->setFillColor(color);
-	
-	std::cout << "hello" << std::endl;
+	shape->setFillColor(_color);
+
 	GameManager::getInstance().Add(this, layer);
 }
 
-GameObject::GameObject(float _posX, float _posY, float _width, float _height, float _angle, const sf::Color& color, int _layerIndex)
+GameObject::GameObject(float _posX, float _posY, float _width, float _height, float _angle, const sf::Color& _color, int _layerIndex)
 {
 	posX = _posX, posY = _posY, width = _width, height = _height, angle = _angle, layer = _layerIndex, radius = 0;
 
 	shape = new sf::RectangleShape (sf::Vector2f(width, height));
 	shape->setPosition(posX, posY);
 	shape->setRotation(angle);
-	shape->setFillColor(color);
+	shape->setFillColor(_color);
 
 	GameManager::getInstance().Add(this, layer);
 }
@@ -269,11 +268,6 @@ void GameObject::SetOrigin(float originX, float originY)
 {
 	shape->setOrigin(originX, originY);
 }
-
-
-
-
-
 
 
 

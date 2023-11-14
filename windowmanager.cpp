@@ -36,7 +36,6 @@ void WindowManager::Draw()
 {
 	for (int i = 0; i < GameManager::getInstance().GetListGameObject().size(); i++)
 	{
-		std::cout << i<< std::endl;
 		oWindow->draw(GameManager::getInstance().GetListGameObject()[i]->GetDrawable());
 	}
 }

@@ -8,33 +8,28 @@
 #include "windowmanager.h"
 #include "ball.h"
 #include "canon.h"
+#include "brick.h"
 
 
 int main(int argc, char** argv)
 {
-    //Cr�ation d'une fen�tre
+    //Creation d'une fen�tre
     WindowManager* oWindow = new WindowManager();
     sf::RenderWindow& oRenderWindow = oWindow->GetRenderWindow();
 
     //Input
     InputManager inputManager(oRenderWindow);
 
+    GameManager::getInstance().LevelLoader("C:\\Users\\timbert\\Documents\\GitHub\\Class_brique\\Level1.txt");
 
-
-    //Cr�ation GameObject
-
+    for (int i = 0; i < 40; i++)
+    {
+        Brick* oBrick = new Brick(0, GameManager::getInstance().GetLife()[i], i);
+    }
+    //Creation GameObject
     GameObject* oRect = new GameObject(250, 250, 20.0f, 200.0f, 0.0f, sf::Color::Red, 1);
-    //GameObject oRect(250, 250, 20.0f, 200.0f, 0.0f, sf::Color::Red, 1);
-    GameObject* oRect2 = new GameObject(400, 200, 25.f, 25.f, 0.0f, sf::Color::Yellow, 50);
-    GameObject* oRect3 = new GameObject(375, 200, 25.f, 25.f, 45.0f, sf::Color::Green);
-
-    /*GameObject* oRect = new GameObject(250, 250, 20.0f, 200.0f, 0.0f, sf::Color::Red, 1);
-    GameObject* oRect2 = new GameObject(400, 200, 25.f, 25.f, 0.0f, sf::Color::Yellow);
-    GameObject* oRect3 = new GameObject(375, 200, 25.f, 25.f, 45.0f, sf::Color::Green);
-    Ball* oBall = new Ball(500, 100, 25, 0.f, sf::Color::Blue);
-    Canon* oRect4 = new Canon( DEFAULT_HEIGHT - 45, DEFAULT_WIDTH/2 , 25.f, 25.f, 45.0f, sf::Color::Magenta);*/
-
-   
+    /*GameObject* oRect2 = new GameObject(400, 200, 25.f, 25.f, 0.0f, sf::Color::Yellow, 50);
+    GameObject* oRect3 = new GameObject(375, 200, 25.f, 25.f, 45.0f, sf::Color::Green);*/
 
     //GameLoop
     while (oRenderWindow.isOpen())
@@ -66,13 +61,16 @@ int main(int argc, char** argv)
             }
         }
 
+        
+
+
         //DRAW
         oRenderWindow.clear();
-        (*oRect3).CheckCollision(*oRect2);
+        //(*oRect3).CheckCollision(*oRect2);
         //oRect2.SetMovement(10.0f, sf::Vector2f(2.f, 1.f), *oWindow);
         (*oRect).UpdateRotationToMousePosition(oRenderWindow, (*oRect).GetSize().x / 2);
 
-        (*oRect3).CheckCollision(*oRect2);
+        //(*oRect3).CheckCollision(*oRect2);
         //oRect.SetMovement(10.0f, sf::Vector2f(2.f, 1.f));
         //(*oRect4).UpdateRotationToMousePosition(oRenderWindow, (*oRect).GetSize().x / 2);
 

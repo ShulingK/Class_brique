@@ -19,9 +19,9 @@ class GameObject
 public :
 	
 	// Constructor
-	GameObject(float _posX, float _posY, int _radius, float angle, const sf::Color& colorL, int _layerIndex = 0);
+	GameObject(float _posX, float _posY, int _radius, float angle, const sf::Color& _color, int _layerIndex = 0);
 	
-	GameObject(float _posX, float _posY, float _width, float angle, float _height, const sf::Color& color, int _layerIndex = 0);
+	GameObject(float _posX, float _posY, float _width, float angle, float _height, const sf::Color& _color, int _layerIndex = 0);
 
 
 	// Destructor
@@ -71,7 +71,6 @@ private :
 
 	int radius = 0, layer;
 	float width = 0, height = 0, angle, posX, posY;
-
 	sf::Vector2f direction;
 
 	std::vector<GameObject*> oGameObject;

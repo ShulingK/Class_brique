@@ -10,6 +10,23 @@
 #include "gamemanager.h"
 #include "windowmanager.h"
 
+namespace math
+{
+	bool IsInsideInterval(float value, float valueMin, float valueMax, int angle = 0)
+	{
+		if (value >= valueMin && value <= valueMax)
+			return true;
+		else return false;
+	}
+};
+
+bool IsInsideInterval(float value, float valueMin, float valueMax, int angle = 0)
+{
+	if (value >= valueMin && value <= valueMax)
+		return true;
+	else return false;
+}
+/* ------------------- ATTENTION -------------------- */
 
 
 // constructor
@@ -178,12 +195,7 @@ const sf::Drawable& GameObject::GetDrawable()
 	return refShape;
 }
 
-bool IsInsideInterval(float value, float valueMin, float valueMax, int angle = 0) 
-{
-	if (value >= valueMin && value <= valueMax)
-		return true;
-	else return false;
-}
+
 
 bool GameObject::CheckCollision( GameObject& obj) {
 
@@ -199,43 +211,43 @@ bool GameObject::CheckCollision( GameObject& obj) {
 
 
 		if (sizeShape1.x < sizeShape2.x) {
-			if (IsInsideInterval(positionShape1.x + sizeShape1.x, positionShape2.x, positionShape2.x + sizeShape2.x) == true || 
-				IsInsideInterval(positionShape1.x, positionShape2.x, positionShape2.x + sizeShape2.x) == true )
+			if (math::IsInsideInterval(positionShape1.x + sizeShape1.x, positionShape2.x, positionShape2.x + sizeShape2.x) == true || 
+				math::IsInsideInterval(positionShape1.x, positionShape2.x, positionShape2.x + sizeShape2.x) == true )
 				isCollidedOnX = true;
 		}
 		else
 		{
-			if (IsInsideInterval(positionShape2.x + sizeShape2.x, positionShape1.x, positionShape1.x + sizeShape1.x) == true ||
-				IsInsideInterval(positionShape2.x, positionShape1.x, positionShape1.x + sizeShape1.x) == true)
+			if (math::IsInsideInterval(positionShape2.x + sizeShape2.x, positionShape1.x, positionShape1.x + sizeShape1.x) == true ||
+				math::IsInsideInterval(positionShape2.x, positionShape1.x, positionShape1.x + sizeShape1.x) == true)
 				isCollidedOnX = true;
 		}
 
 
 		if (sizeShape1.y < sizeShape2.y)
 		{
-			if (IsInsideInterval(positionShape1.y + sizeShape1.y, positionShape2.y, positionShape2.y + sizeShape2.y) == true ||
-				IsInsideInterval(positionShape1.y, positionShape2.y, positionShape2.y + sizeShape2.y) == true)
+			if (math::IsInsideInterval(positionShape1.y + sizeShape1.y, positionShape2.y, positionShape2.y + sizeShape2.y) == true ||
+				math::IsInsideInterval(positionShape1.y, positionShape2.y, positionShape2.y + sizeShape2.y) == true)
 				isCollidedOnY = true;
 					
 		}
 		else
 		{
-			if (IsInsideInterval(positionShape2.y + sizeShape2.y, positionShape1.y, positionShape1.y + sizeShape1.y) == true ||
-				IsInsideInterval(positionShape2.y, positionShape1.y, positionShape1.y + sizeShape1.y) == true )
+			if (math::IsInsideInterval(positionShape2.y + sizeShape2.y, positionShape1.y, positionShape1.y + sizeShape1.y) == true ||
+				math::IsInsideInterval(positionShape2.y, positionShape1.y, positionShape1.y + sizeShape1.y) == true )
 				isCollidedOnY = true;
 		}
 
-		auto it = std::find(oGameObject.begin(), oGameObject.end(), &obj);
+		std::vector<GameObject*>::iterator it = std::find(GameManager::getInstance().GetListGameObject().begin(), GameManager::getInstance().GetListGameObject().end(), &obj);
 		if (isCollidedOnX == true && isCollidedOnY == true)
 		{
 			
-			if (it != oGameObject.end())
+			if (it != GameManager::getInstance().GetListGameObject().end())
 				InCollisionEnter(&obj);
 			else InCollisionStay(&obj);
 		}
 		else
 		{
-			if (it != oGameObject.end())
+			if (it != GameManager::getInstance().GetListGameObject().end())
 				InCollisionExit(&obj,it);
 		}
 
@@ -248,7 +260,7 @@ bool GameObject::CheckCollision( GameObject& obj) {
 
 void GameObject::InCollisionEnter( GameObject* obj)
 {
-	oGameObject.push_back(obj);
+	GameManager::getInstance().GetListGameObject().push_back(obj);
 }
 
 void GameObject::InCollisionStay(const GameObject* obj)
@@ -258,7 +270,7 @@ void GameObject::InCollisionStay(const GameObject* obj)
 
 void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it)
 {
-	oGameObject.erase(it);
+	GameManager::getInstance().GetListGameObject().erase(it);
 }
 
 void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 

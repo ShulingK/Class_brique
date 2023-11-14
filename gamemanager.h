@@ -4,6 +4,7 @@
 #include <vector>
 
 class GameObject;
+class Ball;
 
 class GameManager {
 public:
@@ -22,8 +23,9 @@ public:
 
 
     void Add(GameObject* obj, int layer);
-    const std::vector<GameObject*>& GetListGameObject();
-
+    void Add(Ball* obj, int layer);
+    std::vector<GameObject*>& GetListGameObject();
+    const std::vector<Ball*>& GetListBall();
 
 private:
     GameManager() {}
@@ -31,6 +33,8 @@ private:
     int* lifeOfBrick = new int[40];
 
     std::vector<GameObject*> vGameObject;
+    std::vector<Ball*> vBall;
+
 
     sf::Clock clock;
     sf::Time deltaTime;

@@ -12,12 +12,15 @@ namespace sf
 	class RenderWindow;
 };
 
+
 class WindowManager;
 
 class GameObject
 {
 public :
 	
+	bool IsInsideInterval(float value, float valueMin, float valueMax, int angle = 0);
+
 	// Constructor
 	GameObject(float _posX, float _posY, int _radius, float angle, const sf::Color& _color, int _layerIndex = 0);
 	
@@ -58,7 +61,7 @@ public :
 	const sf::Shape* GetShape();
 	const sf::Drawable& GetDrawable();
 
-	bool CheckCollision( GameObject& obj);
+	virtual bool CheckCollision( GameObject& obj);
 	
 	virtual void InCollisionEnter( GameObject* obj);
 	virtual void InCollisionStay(const GameObject* obj);
@@ -74,7 +77,6 @@ private :
 	float width = 0, height = 0, angle, posX, posY;
 	sf::Vector2f direction;
 	const WindowManager* oWindow;
-	std::vector<GameObject*> oGameObject;
 
 	sf::Shape* shape;
 };

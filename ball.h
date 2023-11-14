@@ -7,15 +7,14 @@ class Ball : public GameObject
 {
 public:
     // Constructor
-    Ball(float _posX, float _posY, int _radius, float angle, sf::Color color, WindowManager* oWindow, int layer);
+    Ball(float _posX, float _posY, int _radius, float angle, sf::Color color, WindowManager* oWindow, int _layer);
 
     void SetWindowManager(WindowManager* oWindow);
-    void SetDefaultPosition(/*float posX, float posY*/WindowManager* oWindow);
-    void Spawn();
-    
+    void SetDefaultPosition(WindowManager* oWindow);
 
-    // Destructor
-    ~Ball();
+    bool CheckCollision(GameObject& obj) override;
+
+    void InCollisionEnter(GameObject* obj) override;
 
     // Ajoutez d'autres méthodes spécifiques à la classe Ball si nécessaire
 

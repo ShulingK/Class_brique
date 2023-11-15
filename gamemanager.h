@@ -25,6 +25,8 @@ public:
     void Add(GameObject* obj, int layer);
     void Add(Ball* obj, int layer);
     const std::vector<GameObject*>& GetListGameObject();
+    void DeleteElementOfListGameObejct(std::vector<GameObject*>::const_iterator it);
+
     std::vector<Ball*>& GetListBall();
 
 private:

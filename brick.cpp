@@ -42,6 +42,7 @@ sf::Color Brick::SetColorBrick(int _life)
 		break;
 
 	case 0:
+		Brick::~Brick();
 		return sf::Color::Transparent;
 		break;
 
@@ -63,12 +64,20 @@ void Brick::SetLife(int _life)
 
 void Brick::DecrementLife()
 {
-	if (life == 0)
+	if (life != 0)
 	{
 		life--;
 	}
 	else
 	{
 		std::cout << "ERROR 404" << std::endl;
+	}
+}
+
+Brick::~Brick()
+{
+	auto it = std::find(GameManager::getInstance().GetListGameObject().begin(), GameManager::getInstance().GetListGameObject().end(), this);
+	if (it != GameManager::getInstance().GetListGameObject().end()) {
+		GameManager::getInstance().DeleteElementOfListGameObejct(it);
 	}
 }

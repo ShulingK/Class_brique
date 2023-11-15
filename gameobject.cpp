@@ -18,8 +18,6 @@ namespace math
 };
 
 
-/* ------------------- ATTENTION -------------------- */
-
 
 // constructor
 GameObject::GameObject(float _posX, float _posY, int _radius, float _angle, const sf::Color& _color, int _layerIndex)
@@ -141,16 +139,16 @@ void GameObject::SetDirection(float newAngle)
 {
 	direction.x = std::cos(newAngle * M_PI / 180.0);
 	direction.y = std::sin(newAngle * M_PI / 180.0);
-	angle = newAngle;
-	SetRotation(angle);
+	/*angle = newAngle;
+	SetRotation(angle);*/
 }
 
 void GameObject::SetDirection(sf::Vector2f newDirection)
 {
 	direction = newDirection;
-	float angle_radians = std::atan2(newDirection.y, newDirection.x);
+	/*float angle_radians = std::atan2(newDirection.y, newDirection.x);
 	angle = angle_radians * 180.0f / M_PI;
-	SetRotation(angle);
+	SetRotation(angle);*/
 }
 
 int GameObject::GetLayerIndex()
@@ -222,15 +220,25 @@ bool GameObject::CheckCollision( GameObject& obj) {
 		std::vector<GameObject*>::iterator it = std::find(vCollidedGameObject.begin(), vCollidedGameObject.end(), &obj);
 		if (isCollidedOnX == true && isCollidedOnY == true)
 		{
-			
-			if (it != vCollidedGameObject.end())
+			if (it == vCollidedGameObject.end())
+			{
+				std::cout << "collide " << std::endl;
 				InCollisionEnter(&obj);
-			else InCollisionStay(&obj);
+				return true;
+			}
+			else 
+			{
+				std::cout << "stay " << std::endl;
+				InCollisionStay(&obj);
+				return true;
+			}
 		}
 		else
 		{
 			if (it != vCollidedGameObject.end())
-				InCollisionExit(&obj,it);
+			{
+				InCollisionExit(&obj, it);
+			}
 		}
 
 		return false;
@@ -253,6 +261,15 @@ void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>
 {
 	vCollidedGameObject.erase(it);
 }
+
+std::vector<GameObject*> GameObject::GetCollidedGameObject()
+{
+	return vCollidedGameObject;
+}
+
+
+
+
 
 
 void GameObject::setCenter(float centerX, float centerY)
@@ -280,3 +297,7 @@ void GameObject::SetOrigin(float originX, float originY)
 	shape->setOrigin(originX, originY);
 }
 
+void GameObject::SetColor(sf::Color _color)
+{
+	shape->setFillColor(_color);
+}

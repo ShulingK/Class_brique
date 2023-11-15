@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include "gameobject.h"
+#include "ball.h"
 
 using namespace std;
 
@@ -50,7 +51,7 @@ void GameManager::Add(GameObject* obj, int layer)
 	vGameObject.insert(it, obj);
 }
 
-const vector<GameObject*>& GameManager::GetListGameObject()
+vector<GameObject*>& GameManager::GetListGameObject()
 {
 	return vGameObject;
 }
@@ -62,5 +63,22 @@ void GameManager::update()
 	{
 		//std::cout << obj->GetDirection().x << " et speed : " << obj->speed << std::endl;
 		(*obj).UpdateMovement();
+
+		cout << vBall.size();
+
+		for (Ball* ball : vBall)
+		{
+			ball->CheckCollision(*obj);
+		}
 	}
+}
+
+void GameManager::Add(Ball* obj, int layer)
+{
+	vBall.push_back(obj);
+}
+
+vector<Ball*>& GameManager::GetListBall()
+{
+	return vBall;
 }

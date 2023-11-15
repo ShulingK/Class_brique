@@ -2,21 +2,93 @@
 #include "gameobject.h"
 #include "windowmanager.h"
 #include <iostream>
+#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Shape.hpp>
+#include "gamemanager.h"
 
-Ball::Ball(float _posX, float _posY, int _radius, float angle, sf::Color color, WindowManager* oWindow, int layer)
-    : GameObject(_posX, _posY, _radius, angle, color),windowManager(oWindow) {}
+
+Ball::Ball(float _posX, float _posY, int _radius, float angle, sf::Color color, WindowManager* oWindow, int _layer)
+    : GameObject(_posX, _posY, _radius, angle, color, _layer),windowManager(oWindow) 
+{ 
+    GameManager::getInstance().Add(this, GetLayerIndex());
+}
 
 void Ball::SetWindowManager(WindowManager* oWindow)
 {
     windowManager = oWindow;
 }
 
-void Ball::SetDefaultPosition(/*float posX, float posY*/WindowManager* oWindow)
+void Ball::SetDefaultPosition(WindowManager* oWindow)
 {
     SetPosition(0.f, 0.f, *oWindow);
 }
 
-Ball::~Ball()
+
+bool Ball::CheckCollision(GameObject& obj) {
+
+	sf::Vector2f positionShape1 = GetPosition();
+	sf::Vector2f sizeShape1 = GetSize();
+	sf::Vector2f positionShape2 = obj.GetShape()->getPosition();
+	sf::Vector2f sizeShape2 = obj.GetSize();
+
+	if (GetLayerIndex() == obj.GetLayerIndex())
+	{
+
+		bool isCollidedOnX = false, isCollidedOnY = false;
+
+
+		if (sizeShape1.x < sizeShape2.x) {
+			if (IsInsideInterval(positionShape1.x + sizeShape1.x, positionShape2.x, positionShape2.x + sizeShape2.x) == true ||
+				IsInsideInterval(positionShape1.x, positionShape2.x, positionShape2.x + sizeShape2.x) == true)
+				isCollidedOnX = true;
+		}
+		else
+		{
+			if (IsInsideInterval(positionShape2.x + sizeShape2.x, positionShape1.x, positionShape1.x + sizeShape1.x) == true ||
+				IsInsideInterval(positionShape2.x, positionShape1.x, positionShape1.x + sizeShape1.x) == true)
+				isCollidedOnX = true;
+		}
+
+
+		if (sizeShape1.y < sizeShape2.y)
+		{
+			if (IsInsideInterval(positionShape1.y + sizeShape1.y, positionShape2.y, positionShape2.y + sizeShape2.y) == true ||
+				IsInsideInterval(positionShape1.y, positionShape2.y, positionShape2.y + sizeShape2.y) == true)
+				isCollidedOnY = true;
+
+		}
+		else
+		{
+			if (IsInsideInterval(positionShape2.y + sizeShape2.y, positionShape1.y, positionShape1.y + sizeShape1.y) == true ||
+				IsInsideInterval(positionShape2.y, positionShape1.y, positionShape1.y + sizeShape1.y) == true)
+				isCollidedOnY = true;
+		}
+
+		auto it = std::find(oGameObject.begin(), oGameObject.end(), &obj);
+		if (isCollidedOnX == true && isCollidedOnY == true)
+		{
+
+			if (it != oGameObject.end())
+				InCollisionEnter(&obj);
+			else InCollisionStay(&obj);
+		}
+		else
+		{
+			if (it != oGameObject.end())
+				InCollisionExit(&obj, it);
+		}
+
+		return false;
+
+	}
+	return false;
+}
+
+
+void Ball::InCollisionEnter(GameObject* obj)
 {
-    // Libérer les ressources spécifiques à la classe Ball si nécessaire
+    if (GetPosition().x <= 0 || GetPosition().x + GetSize().x >= 800 /*oWindow*/){
+        std::cout << "mhhhh" << std::endl;
+        SetDirection(sf::Vector2f(GetDirection().x * -1, GetDirection().y));
+    }
 }

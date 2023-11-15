@@ -29,7 +29,8 @@ int main(int argc, char** argv)
 
     //Creation GameObject
     
-    Canon* oRect4 = new Canon(oWindow->GetWindowSize().x / 2, oWindow->GetWindowSize().y - 25, 25.f, 0.f, 25.f,sf::Color::Magenta,oWindow,1);   
+    Canon* oRect4 = new Canon(oWindow->GetWindowSize().x / 2, oWindow->GetWindowSize().y - 25, 25.f, 0.f, 25.f,sf::Color::Magenta,oWindow,1);
+    
 
 
     bool mouseClicked = false;
@@ -52,7 +53,7 @@ int main(int argc, char** argv)
                 mouseClicked = false;
                 std::cout << mouseClicked << std::endl;
             }
-            oRect4->setCenter(oRenderWindow.getSize().x / 2, oRenderWindow.getSize().y / 2);
+            oRect4->SetCenter(oRect4->GetPosition().x, oRect4->GetPosition().x, oRect4->GetSize().x, oRect4->GetSize().y);
             (*oRect4).GetDirection();
             sf::Vector2f BallDirection = sf::Vector2f((*oRect4).GetDirection().x, (*oRect4).GetDirection().x); 
             (*oRect4).UpdateRotationToMousePosition(oRenderWindow);

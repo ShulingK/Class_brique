@@ -37,7 +37,7 @@ public :
 
 
 	// methods
-	const sf::Vector2f& GetPosition();
+	sf::Vector2f& GetPosition();
 	void SetPosition(float newPosX, float newPosY, const WindowManager& oWindow);
 
 	const sf::Vector2f& GetSize();
@@ -72,7 +72,7 @@ public :
 	virtual void InCollisionStay(const GameObject* obj);
 	virtual void InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it);
 
-	void setCenter(float centerX, float centerY);
+	void SetCenter(float posX, float posY, float width, float height);
 
 	//void UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX = 0.f, float fAnchorY = 0.f); // canon
 	float speed = 0.f;

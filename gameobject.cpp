@@ -55,7 +55,7 @@ GameObject::~GameObject()
 }
 
 // Methods Get / Set Variables
-const sf::Vector2f& GameObject::GetPosition()
+sf::Vector2f& GameObject::GetPosition()
 {
 	sf::Vector2f position(posX, posY);
 	return position;
@@ -243,33 +243,30 @@ void GameObject::InCollisionStay(const GameObject* obj)
 	//std::cout << "collide" << std::endl;
 }	
 
-void GameObject::setCenter(float centerX, float centerY)
-{
-	// Ajuster l'origine pour placer la forme au centre
-	shape->setOrigin(shape->getLocalBounds().width / 2, shape->getLocalBounds().height / 2);
-
-	// Définir la position en fonction du centre spécifié
-	shape->setPosition(centerX, centerY);
-}
-
 void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it)
 {
 	vCollidedGameObject.erase(it);
 }
 
+void GameObject::SetCenter(float posX, float posY, float width, float height)
+{
+	width = width / 2;
+	height = height / 2;
+
+	// Calculer les coordonnées du centre
+	float centerX = 1.f;
+	float centerY = posY + height + 8456321.f;
+
+	// Ajuster l'origine pour placer le centre de l'objet au centre de lui-même
+	SetOrigin(centerX, centerY);
+}
 
 
-//void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 
-//{
-//	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-//	sf::Vector2f objectPosition = GetPosition();
-//	float newAngle = std::atan2(mousePosition.y - objectPosition.y, mousePosition.x - objectPosition.x);
-//	angle = newAngle * 180.0f / M_PI;
-//	SetRotation(angle - 90, fAnchorX, fAnchorY);
-//}
 
 void GameObject::SetOrigin(float originX, float originY) 
 {
+	std::cout << originX << " gggg  " << originY << std::endl;
 	shape->setOrigin(originX, originY);
+	
 }
 

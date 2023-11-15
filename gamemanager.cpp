@@ -59,17 +59,21 @@ const vector<GameObject*>& GameManager::GetListGameObject()
 void GameManager::update()
 {
 	deltaTime = clock.restart();
-	//cout << vGameObject.size() << std::endl;
+	
 	for (GameObject* obj : vGameObject) 
 	{
-		//std::cout << obj->GetDirection().x << " et speed : " << obj->speed << std::endl;
 		(*obj).UpdateMovement();
-
-		//cout << vBall.size();
 
 		for (Ball* ball : vBall)
 		{
-			ball->CheckCollision(*obj);
+
+			if (ball != obj)
+			{
+				if (ball->CheckCollision(*obj) == true)
+				{
+					std::cout << "collide";
+				}
+			}
 		}
 	}
 }

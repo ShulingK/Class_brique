@@ -45,6 +45,9 @@ GameObject::GameObject(float _posX, float _posY, float _width, float _height, fl
 	shape->setRotation(angle);
 	shape->setFillColor(_color);
 
+
+	//std::cout << GetPosition().x << " et " << GetPosition().y << std::endl;
+
 	GameManager::getInstance().Add(this, layer);
 }
 
@@ -55,9 +58,10 @@ GameObject::~GameObject()
 }
 
 // Methods Get / Set Variables
-const sf::Vector2f& GameObject::GetPosition()
+sf::Vector2f GameObject::GetPosition()
 {
 	sf::Vector2f position(posX, posY);
+	//std::cout << std::endl << "position en x" << position.x << std::endl;
 	return position;
 }
 
@@ -65,7 +69,6 @@ void GameObject::SetPosition(float newPosX, float newPosY, const WindowManager& 
 {
 	posX = newPosX;
 	posY = newPosY;
-
 	shape->setPosition(posX, posY);
 }
 
@@ -175,11 +178,14 @@ const sf::Drawable& GameObject::GetDrawable()
 
 bool GameObject::CheckCollision( GameObject& obj) {
 
-	sf::Vector2f positionShape1 = GetPosition();
-	sf::Vector2f sizeShape1 = GetSize();
-	sf::Vector2f positionShape2 = obj.GetShape()->getPosition();
-	sf::Vector2f sizeShape2 = obj.GetSize();
+	const sf::Vector2f positionShape1 = GetPosition();
+	const sf::Vector2f sizeShape1 = GetSize();
+	const sf::Vector2f positionShape2 = obj.GetShape()->getPosition();
+	const sf::Vector2f sizeShape2 = obj.GetSize();
  
+	//std::cout << "GetPosition : " << posX << "(" << GetPosition().x << ")" << "   " << posY << "(" << GetPosition().x << ")" << "     Obj " << "GetPosition : " << obj.GetPosition().x << "   " << obj.GetPosition().y << std::endl;
+
+
 	if ( GetLayerIndex() == obj.GetLayerIndex())
 	{
 
@@ -243,6 +249,12 @@ void GameObject::InCollisionStay(const GameObject* obj)
 	//std::cout << "collide" << std::endl;
 }	
 
+void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it)
+{
+	vCollidedGameObject.erase(it);
+}
+
+
 void GameObject::setCenter(float centerX, float centerY)
 {
 	// Ajuster l'origine pour placer la forme au centre
@@ -250,11 +262,6 @@ void GameObject::setCenter(float centerX, float centerY)
 
 	// Définir la position en fonction du centre spécifié
 	shape->setPosition(centerX, centerY);
-}
-
-void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it)
-{
-	vCollidedGameObject.erase(it);
 }
 
 

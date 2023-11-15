@@ -29,7 +29,5 @@ void Ball::InCollisionEnter(GameObject* obj)
 {
     std::cout << vCollidedGameObject.size() << std::endl;
     vCollidedGameObject.push_back(obj);
-    if (GetPosition().x <= 0 || GetPosition().x + GetSize().x >= 800){
-        SetDirection(sf::Vector2f(GetDirection().x * -1, GetDirection().y));
-    }
+
 }

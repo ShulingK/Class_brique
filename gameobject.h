@@ -37,7 +37,7 @@ public :
 
 
 	// methods
-	const sf::Vector2f& GetPosition();
+	sf::Vector2f GetPosition();
 	void SetPosition(float newPosX, float newPosY, const WindowManager& oWindow);
 
 	const sf::Vector2f& GetSize();

@@ -18,8 +18,8 @@ void Canon::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAncho
 	sf::Vector2f objectPosition = GetPosition();
 	float newAngle = std::atan2(mousePosition.y - objectPosition.y, mousePosition.x - objectPosition.x);
 	angle = newAngle * 180.0f / M_PI;
-	SetRotation(angle - 90, fAnchorX, fAnchorY);
-	SetDirection(angle - 90);
+	SetRotation(angle, fAnchorX, fAnchorY);
+	SetDirection(angle);
 }
 
 void Canon::ShootBall(const WindowManager& oWindow)

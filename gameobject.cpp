@@ -243,10 +243,21 @@ void GameObject::InCollisionStay(const GameObject* obj)
 	//std::cout << "collide" << std::endl;
 }	
 
+void GameObject::setCenter(float centerX, float centerY)
+{
+	// Ajuster l'origine pour placer la forme au centre
+	shape->setOrigin(shape->getLocalBounds().width / 2, shape->getLocalBounds().height / 2);
+
+	// Définir la position en fonction du centre spécifié
+	shape->setPosition(centerX, centerY);
+}
+
 void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it)
 {
 	GameManager::getInstance().GetListGameObject().erase(it);
 }
+
+
 
 //void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 
 //{
@@ -261,3 +272,4 @@ void GameObject::SetOrigin(float originX, float originY)
 {
 	shape->setOrigin(originX, originY);
 }
+

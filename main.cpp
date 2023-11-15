@@ -31,6 +31,7 @@ int main(int argc, char** argv)
     GameObject* oRect2 = new GameObject(400, 200, 25.f, 25.f, 0.0f, sf::Color::Yellow, 50);
     GameObject* oRect3 = new GameObject(375, 200, 25.f, 25.f, 45.0f, sf::Color::Green);
     Canon* oRect4 = new Canon(oWindow->GetWindowSize().x / 2, oWindow->GetWindowSize().y - 25, 25.f, 25.f, 0.f,sf::Color::Magenta,oWindow,1);   
+    
 
     //GameLoop
     while (oRenderWindow.isOpen())
@@ -44,7 +45,7 @@ int main(int argc, char** argv)
             {
                 (*oRect4).ShootBall(*oWindow);
             }
-
+            oRect4->setCenter(oRenderWindow.getSize().x / 2, oRenderWindow.getSize().y / 2);
             (*oRect4).GetDirection();
             sf::Vector2f BallDirection = sf::Vector2f((*oRect4).GetDirection().x, (*oRect4).GetDirection().x); 
             (*oRect4).UpdateRotationToMousePosition(oRenderWindow);

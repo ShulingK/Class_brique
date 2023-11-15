@@ -6,6 +6,8 @@
 #include "gamemanager.h"
 #include "gameobject.h"
 
+#include <vector>
+
 WindowManager::WindowManager(int _windowWidth, int _windowHeight, const char* _name)
 {
 	windowWidth = _windowWidth, windowHeight = _windowHeight;
@@ -34,9 +36,13 @@ const sf::Vector2i& WindowManager::GetWindowSize()
 
 void WindowManager::Draw()
 {
-	for (int i = 0; i < GameManager::getInstance().GetListGameObject().size(); i++)
+	const std::vector<GameObject*>& oVect = GameManager::getInstance().GetListGameObject();
+
+	std::cout << oVect.size() << std::endl;
+
+	for (int i = 0; i < oVect.size(); i++)
 	{
-		oWindow->draw(GameManager::getInstance().GetListGameObject()[i]->GetDrawable());
+		oWindow->draw(oVect[i]->GetDrawable());
 	}
 }
 

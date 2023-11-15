@@ -66,13 +66,12 @@ public :
 	const sf::Shape* GetShape();
 	const sf::Drawable& GetDrawable();
 
-	virtual bool CheckCollision( GameObject& obj);
+	bool CheckCollision( GameObject& obj);
 	
 	virtual void InCollisionEnter( GameObject* obj);
 	virtual void InCollisionStay(const GameObject* obj);
 	virtual void InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it);
 	
-	//void UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX = 0.f, float fAnchorY = 0.f); // canon
 	float speed = 0.f;
 private : 
 
@@ -80,6 +79,8 @@ private :
 	float width = 0, height = 0, angle, posX, posY;
 	sf::Vector2f direction;
 	const WindowManager* oWindow;
+
+	std::vector<GameObject*> vCollidedGameObject;
 
 	sf::Shape* shape;
 };

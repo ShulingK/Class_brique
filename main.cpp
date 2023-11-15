@@ -24,14 +24,15 @@ int main(int argc, char** argv)
 
     for (int i = 0; i < 40; i++)
     {
-        Brick* oBrick = new Brick(0, GameManager::getInstance().GetLife()[i], i);
+        Brick* oBrick = new Brick(2, GameManager::getInstance().GetLife()[i], i);
     }
 
     //Creation GameObject
-    GameObject* oRect2 = new GameObject(400, 200, 25.f, 25.f, 0.0f, sf::Color::Yellow, 50);
-    GameObject* oRect3 = new GameObject(375, 200, 25.f, 25.f, 45.0f, sf::Color::Green);
-    Canon* oRect4 = new Canon(oWindow->GetWindowSize().x / 2, oWindow->GetWindowSize().y - 25, 25.f, 25.f, 0.f,sf::Color::Magenta,oWindow,1);   
+    
+    Canon* oRect4 = new Canon(oWindow->GetWindowSize().x / 2, oWindow->GetWindowSize().y - 25, 25.f, 0.f, 25.f,sf::Color::Magenta,oWindow,1);   
 
+
+    bool mouseClicked = false;
     //GameLoop
     while (oRenderWindow.isOpen())
     {
@@ -40,15 +41,17 @@ int main(int argc, char** argv)
         sf::Event oEvent;
         while (oRenderWindow.pollEvent(oEvent))
         {
-            if (mouseManager.isMouseClicked(sf::Mouse::Left)) 
+            if (mouseManager.isMouseClicked(sf::Mouse::Left) && mouseClicked == false) 
             {
+                mouseClicked = true;
                 (*oRect4).ShootBall(*oWindow);
+                std::cout << mouseClicked << std::endl;
             }
-
-            (*oRect4).GetDirection();
-            sf::Vector2f BallDirection = sf::Vector2f((*oRect4).GetDirection().x, (*oRect4).GetDirection().x); 
-            (*oRect4).UpdateRotationToMousePosition(oRenderWindow);
-            inputManager.InputHandler(oEvent, oRenderWindow);
+            else if (!mouseManager.isMouseClicked(sf::Mouse::Left) && mouseClicked == true)
+            {
+                mouseClicked = false;
+                std::cout << mouseClicked << std::endl;
+            }
             if (oEvent.type == sf::Event::Closed)
                 oRenderWindow.close();
             if (sf::Keyboard::isKeyPressed(ESCAPE))
@@ -59,6 +62,11 @@ int main(int argc, char** argv)
                 sf::Vector2i mousePosition = sf::Mouse::getPosition(oRenderWindow);       
             }
         }
+
+        (*oRect4).UpdateRotationToMousePosition(oRenderWindow);
+        inputManager.InputHandler(oEvent, oRenderWindow);
+
+
         //DRAW
         oRenderWindow.clear();
         oWindow->Update();

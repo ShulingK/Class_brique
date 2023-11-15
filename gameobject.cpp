@@ -213,17 +213,17 @@ bool GameObject::CheckCollision( GameObject& obj) {
 				isCollidedOnY = true;
 		}
 
-		std::vector<GameObject*>::iterator it = std::find(GameManager::getInstance().GetListGameObject().begin(), GameManager::getInstance().GetListGameObject().end(), &obj);
+		std::vector<GameObject*>::iterator it = std::find(vCollidedGameObject.begin(), vCollidedGameObject.end(), &obj);
 		if (isCollidedOnX == true && isCollidedOnY == true)
 		{
 			
-			if (it != GameManager::getInstance().GetListGameObject().end())
+			if (it != vCollidedGameObject.end())
 				InCollisionEnter(&obj);
 			else InCollisionStay(&obj);
 		}
 		else
 		{
-			if (it != GameManager::getInstance().GetListGameObject().end())
+			if (it != vCollidedGameObject.end())
 				InCollisionExit(&obj,it);
 		}
 
@@ -235,7 +235,7 @@ bool GameObject::CheckCollision( GameObject& obj) {
 
 void GameObject::InCollisionEnter( GameObject* obj)
 {
-	GameManager::getInstance().GetListGameObject().push_back(obj);
+	vCollidedGameObject.push_back(obj);
 }
 
 void GameObject::InCollisionStay(const GameObject* obj)
@@ -245,7 +245,7 @@ void GameObject::InCollisionStay(const GameObject* obj)
 
 void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it)
 {
-	GameManager::getInstance().GetListGameObject().erase(it);
+	vCollidedGameObject.erase(it);
 }
 
 //void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 

@@ -12,12 +12,12 @@ public:
     void SetWindowManager(WindowManager* oWindow);
     void SetDefaultPosition(WindowManager* oWindow);
 
-    bool CheckCollision(GameObject& obj) override;
-
     void InCollisionEnter(GameObject* obj) override;
 
 private:
     sf::Vector2f defaultPosition;
     WindowManager* windowManager;
+
+    std::vector<GameObject*> vCollidedGameObject;
 };
 

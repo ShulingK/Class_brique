@@ -51,7 +51,7 @@ void GameManager::Add(GameObject* obj, int layer)
 	vGameObject.insert(it, obj);
 }
 
-vector<GameObject*>& GameManager::GetListGameObject()
+const vector<GameObject*>& GameManager::GetListGameObject()
 {
 	return vGameObject;
 }
@@ -59,12 +59,13 @@ vector<GameObject*>& GameManager::GetListGameObject()
 void GameManager::update()
 {
 	deltaTime = clock.restart();
+	//cout << vGameObject.size() << std::endl;
 	for (GameObject* obj : vGameObject) 
 	{
 		//std::cout << obj->GetDirection().x << " et speed : " << obj->speed << std::endl;
 		(*obj).UpdateMovement();
 
-		cout << vBall.size();
+		//cout << vBall.size();
 
 		for (Ball* ball : vBall)
 		{

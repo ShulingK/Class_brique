@@ -18,15 +18,15 @@ void Canon::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAncho
 	sf::Vector2f objectPosition = GetPosition();
 	float newAngle = std::atan2(mousePosition.y - objectPosition.y, mousePosition.x - objectPosition.x);
 	angle = newAngle * 180.0f / M_PI;
-	SetRotation(angle - 90, fAnchorX, fAnchorY);
-	SetDirection(angle - 90);
+	SetRotation(angle , fAnchorX, fAnchorY);
+	SetDirection(angle );
 }
 
 void Canon::ShootBall(const WindowManager& oWindow)
 {
 	// Créer un nouvel objet Ball au centre de la fenêtre
 	Ball* oBall = new Ball(windowManager->GetWindowSize().x / 2, windowManager->GetWindowSize().y - 50, 25, 0.f, sf::Color::Blue, windowManager,2);
-	std::cout << "clikouclikou" << std::endl;
+	//std::cout << "clikouclikou" << std::endl;
 	oBall->SetDirection(GetDirection());
 	oBall->SetMovement(60.f, oBall->GetDirection (), oWindow);
 	

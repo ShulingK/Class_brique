@@ -1,8 +1,8 @@
 #pragma once
-#include <SFML/Graphics/Color.hpp>
 #include "gameobject.h"
-#include "windowmanager.h"
+
 class MouseManager;
+
 class Ball : public GameObject
 {
 public:
@@ -15,8 +15,6 @@ public:
     bool CheckCollision(GameObject& obj) override;
 
     void InCollisionEnter(GameObject* obj) override;
-
-    // Ajoutez d'autres méthodes spécifiques à la classe Ball si nécessaire
 
 private:
     sf::Vector2f defaultPosition;

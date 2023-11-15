@@ -1,8 +1,6 @@
 #include "ball.h"
 #include "gameobject.h"
 #include "windowmanager.h"
-#include "mousemanager.h"
-#include "canon.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Shape.hpp>

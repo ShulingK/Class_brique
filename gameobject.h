@@ -71,10 +71,8 @@ public :
 	virtual void InCollisionEnter( GameObject* obj);
 	virtual void InCollisionStay(const GameObject* obj);
 	virtual void InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it);
-
-	//bool CheckCollisionWithCircle(GameObject& obj);
 	
-	void UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX = 0.f, float fAnchorY = 0.f); // canon
+	//void UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX = 0.f, float fAnchorY = 0.f); // canon
 	float speed = 0.f;
 private : 
 

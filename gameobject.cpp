@@ -1,12 +1,9 @@
 #include "gameobject.h"
-
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Shape.hpp>
-
 #define _USE_MATH_DEFINES
 #include <math.h>
-
 #include "gamemanager.h"
 #include "windowmanager.h"
 
@@ -56,9 +53,6 @@ GameObject::~GameObject()
 {
 	delete shape;
 }
- 
-
-
 
 // Methods Get / Set Variables
 const sf::Vector2f& GameObject::GetPosition()
@@ -75,16 +69,11 @@ void GameObject::SetPosition(float newPosX, float newPosY, const WindowManager& 
 	shape->setPosition(posX, posY);
 }
 
-// oWindow.GetWindowSize().x * posX / DEFAULT_WIDTH, oWindow.GetWindowSize().y * posY / DEFAULT_HEIGHT
-
-
-
 const sf::Vector2f& GameObject::GetSize()
 {
 	sf::Vector2f size(width, height);
 	return size;
 }
-
 
 int GameObject::GetRadius()
 {
@@ -98,7 +87,6 @@ void GameObject::SetSize(float newWidth, float newHeight)
 
 	shape->setScale(newWidth ,newHeight);
 }
-
 
 void GameObject::SetSize(int newRadius)
 {
@@ -117,13 +105,11 @@ void GameObject::SetRotation(float newAngle)
 	shape->setRotation(angle);
 }
 
-
 void GameObject::SetRotation(float newAngle, float fAnchorX, float fAnchorY)
 {
 	SetOrigin(fAnchorX, fAnchorY);
 	SetRotation(newAngle);
 }
-
 
 void GameObject::SetMovement(float _speed,const sf::Vector2f& direction, const WindowManager& _oWindow)
 {
@@ -140,7 +126,6 @@ void GameObject::UpdateMovement()
 	SetDirection(direction);
 	SetPosition(posX + direction.x * deltaTime * speed, posY + direction.y * deltaTime * speed, *oWindow);
 }
-
 
 
 const sf::Vector2f& GameObject::GetDirection()
@@ -175,14 +160,10 @@ void GameObject::SetLayerIndex(int newLayerIndex)
 	layer = newLayerIndex;
 }
 
-
-
-
 const sf::Shape* GameObject::GetShape()
 {
 	return shape;
 }
-
 
 const sf::Drawable& GameObject::GetDrawable()
 {
@@ -252,7 +233,6 @@ bool GameObject::CheckCollision( GameObject& obj) {
 	return false;
 }
 
-
 void GameObject::InCollisionEnter( GameObject* obj)
 {
 	GameManager::getInstance().GetListGameObject().push_back(obj);
@@ -268,14 +248,14 @@ void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>
 	GameManager::getInstance().GetListGameObject().erase(it);
 }
 
-void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 
-{
-	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-	sf::Vector2f objectPosition = GetPosition();
-	float newAngle = std::atan2(mousePosition.y - objectPosition.y, mousePosition.x - objectPosition.x);
-	angle = newAngle * 180.0f / M_PI;
-	SetRotation(angle - 90, fAnchorX, fAnchorY);
-}
+//void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 
+//{
+//	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+//	sf::Vector2f objectPosition = GetPosition();
+//	float newAngle = std::atan2(mousePosition.y - objectPosition.y, mousePosition.x - objectPosition.x);
+//	angle = newAngle * 180.0f / M_PI;
+//	SetRotation(angle - 90, fAnchorX, fAnchorY);
+//}
 
 void GameObject::SetOrigin(float originX, float originY) 
 {

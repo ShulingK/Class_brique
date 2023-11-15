@@ -8,7 +8,7 @@ class Canon : public GameObject
 {
 public:
     // Constructor
-    Canon(float _posX, float _posY, float _width, int angle, float _height, const sf::Color color, WindowManager* oWindow , int layer);
+    Canon(float _posX, float _posY, float _width, float angle, float _height, const sf::Color color, WindowManager* oWindow , int layer);
 
     void UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX = 0.f, float fAnchorY = 0.f);
     void ShootBall(const WindowManager& oWindow);

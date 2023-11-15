@@ -33,9 +33,9 @@ int main(int argc, char** argv)
     //Creation GameObject
     GameObject* oRect = new GameObject(250, 250, 20.0f, 200.0f, 0.0f, sf::Color::Red, 1);
     //GameObject oRect(250, 250, 20.0f, 200.0f, 0.0f, sf::Color::Red, 1);
-    GameObject* oRect2 = new GameObject(400, 200, 25.f, 25.f, 0.0f, sf::Color::Yellow, 50);
-    GameObject* oRect3 = new GameObject(375, 200, 25.f, 25.f, 45.0f, sf::Color::Green);
-    Canon* oRect4 = new Canon(oWindow->GetWindowSize().x / 2, oWindow->GetWindowSize().y - 25, 25.f, 25.f, 0.f,sf::Color::Magenta,oWindow,1);
+    //GameObject* oRect2 = new GameObject(400, 200, 25.f, 25.f, 0.0f, sf::Color::Yellow, 50);
+    //GameObject* oRect3 = new GameObject(375, 200, 25.f, 25.f, 45.0f, sf::Color::Green);
+    Canon* oRect4 = new Canon(oWindow->GetWindowSize().x / 2, oWindow->GetWindowSize().y - 25, 25.f, 25.f, 25.f,sf::Color::Magenta,oWindow,1);
     //Ball* oBall = new Ball(oWindow->GetWindowSize().x / 2, oWindow->GetWindowSize().y - 25, 25, 0.f ,sf::Color::Blue);
 
     /*GameObject* oRect = new GameObject(250, 250, 20.0f, 200.0f, 0.0f, sf::Color::Red, 1);

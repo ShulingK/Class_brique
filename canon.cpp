@@ -10,8 +10,8 @@
 #include <math.h>
 
 
-Canon::Canon(float _posX, float _posY, float _width, int angle, float _height, const sf::Color color, WindowManager* oWindow ,int layer)
-    : GameObject(_posX, _posY, _width, angle, _height, color ),windowManager(oWindow)
+Canon::Canon(float _posX, float _posY, float _width, float angle, float _height, const sf::Color color, WindowManager* oWindow ,int layer)
+    : GameObject(_posX, _posY, _width, _height, angle, color ),windowManager(oWindow)
 {
 	
 }

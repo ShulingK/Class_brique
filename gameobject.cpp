@@ -12,7 +12,7 @@
 
 namespace math
 {
-	bool IsInsideInterval(float value, float valueMin, float valueMax, int angle = 0)
+	bool IsInsideInterval(float value, float valueMin, float valueMax)
 	{
 		if (value >= valueMin && value <= valueMax)
 			return true;
@@ -20,12 +20,7 @@ namespace math
 	}
 };
 
-bool IsInsideInterval(float value, float valueMin, float valueMax, int angle = 0)
-{
-	if (value >= valueMin && value <= valueMax)
-		return true;
-	else return false;
-}
+
 /* ------------------- ATTENTION -------------------- */
 
 

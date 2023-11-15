@@ -15,11 +15,16 @@ namespace sf
 
 class WindowManager;
 
+namespace math
+{
+	bool IsInsideInterval(float value, float valueMin, float valueMax);
+};
+
+
+
 class GameObject
 {
 public :
-	
-	bool IsInsideInterval(float value, float valueMin, float valueMax, int angle = 0);
 
 	// Constructor
 	GameObject(float _posX, float _posY, int _radius, float angle, const sf::Color& _color, int _layerIndex = 0);

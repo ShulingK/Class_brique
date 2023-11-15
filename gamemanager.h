@@ -25,7 +25,7 @@ public:
     void Add(GameObject* obj, int layer);
     void Add(Ball* obj, int layer);
     std::vector<GameObject*>& GetListGameObject();
-    const std::vector<Ball*>& GetListBall();
+    std::vector<Ball*>& GetListBall();
 
 private:
     GameManager() {}

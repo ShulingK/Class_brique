@@ -52,6 +52,11 @@ int main(int argc, char** argv)
                 mouseClicked = false;
                 std::cout << mouseClicked << std::endl;
             }
+            oRect4->setCenter(oRenderWindow.getSize().x / 2, oRenderWindow.getSize().y / 2);
+            (*oRect4).GetDirection();
+            sf::Vector2f BallDirection = sf::Vector2f((*oRect4).GetDirection().x, (*oRect4).GetDirection().x); 
+            (*oRect4).UpdateRotationToMousePosition(oRenderWindow);
+            inputManager.InputHandler(oEvent, oRenderWindow);
             if (oEvent.type == sf::Event::Closed)
                 oRenderWindow.close();
             if (sf::Keyboard::isKeyPressed(ESCAPE))

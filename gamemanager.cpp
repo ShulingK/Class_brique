@@ -7,15 +7,15 @@
 #include "brick.h"
 #include "border.h"
 #include "levelmanager.h"
+#include "textmanager.h"
 
 #include <string>
 #include <vector>
-#include "gameobject.h"
-#include "ball.h"
 
 using namespace std;
 
-
+#include <iostream>
+#include <sstream>
 
 
 void GameManager::Game()
@@ -27,30 +27,44 @@ void GameManager::Game()
     //Initialisation d'InputManager
     InputManager inputManager(oRenderWindow);
 
-
-    (*lvlManager).LevelLoader("Level\\Level1.txt");
-    // --------- mettre dans une autre fonction  ( levelManager ) ---------- //
-    //Creation grid
-    for (int i = 0; i < 40; i++)
+    int countOfLevel = 0;
+    score = 0;
+    while ( countOfLevel < lvlManager->GetPath().size() )
     {
-        Brick* oBrick = new Brick(2, GameManager::getInstance().GetLife()[i], i);
+        vGameObject.clear();
+        vBall.clear();
+        oRenderWindow.clear();
+        
+        //Text between scenes
+        TextManager _text("Font\\NovaSquare-Regular.ttf", WindowManager::getInstance().GetWindowSize().y / 4, sf::Color::Cyan, 0  + WindowManager::getInstance().GetWindowSize().x / 6, WindowManager::getInstance().GetWindowSize().y* 3 / 8);
+        _text.SetText(_text.Concatenation("Level ", (countOfBalls + 1)));
+        _text.Draw();
+        oRenderWindow.display();
+        sf::Time temp = sf::seconds(.0f);
+        WaitForSeconds(temp, sf::seconds(5.0f));
+
+        //load Scene
+        lvlManager->LevelLoader(countOfLevel);
+        countOfLevel++;
+        
+        
+        InstanciateTab();
+
+
+        sf::Vector2i wSize = WindowManager::getInstance().GetWindowSize();
+        scoreText = new TextManager("Font\\NovaSquare-Regular.ttf", wSize.y * 40 / 720, sf::Color::White, 40, 10 + wSize.y * 20 / 720);
+        GameLoop(oRenderWindow, GetCanon(), inputManager);
+
+        cout << countOfLevel << endl;
     }
-
-    //Creation cadre
-    Border* oBorderTop = new Border(-10.f, -10.f, WindowManager::getInstance().GetWindowSize().x + 20.f, 20.f, 0.f, sf::Color::White, 2, true);
-    Border* oBorderBottom = new Border(-10.f, WindowManager::getInstance().GetWindowSize().y - 10.f, WindowManager::getInstance().GetWindowSize().x + 20.f, +20.f, 0.f, sf::Color::White, 2, false);
-    Border* oBorderLeft = new Border(-10.f, -10.f, 20.f, WindowManager::getInstance().GetWindowSize().y + 20.f, 0.f, sf::Color::White, 2, true);
-    Border* oBorderRight = new Border(WindowManager::getInstance().GetWindowSize().x - 10.f, -10.f, 20.f, WindowManager::getInstance().GetWindowSize().y + 20.f, 0.f, sf::Color::White, 2, true);
-    
-    Canon* oRect4 = new Canon(WindowManager::getInstance().GetWindowSize().x / 2, WindowManager::getInstance().GetWindowSize().y - 25, 0.f, sf::Color::Magenta, 1);
-    
-    // ---------------------------------------------------------------------- //
+}
 
 
-
+void GameManager::GameLoop(sf::RenderWindow& oRenderWindow, Canon* oCanon, InputManager inputManager)
+{
     bool mouseClicked = false;
-    //GameLoop
-    while (oRenderWindow.isOpen())
+
+	while (oRenderWindow.isOpen() && levelRunning)
     {
         GameManager::getInstance().update();
 
@@ -68,13 +82,14 @@ void GameManager::Game()
             if (oEvent.type == sf::Event::EventType::MouseButtonPressed && oEvent.mouseButton.button == sf::Mouse::Left)
             {
                 mouseClicked = true;
-                (*oRect4).ShootBall();
+                (*oCanon).ShootBall();
+                countOfBalls++;
             }
 
             
             // ----- autre fonction ----- // 
-            sf::Vector2f BallDirection = sf::Vector2f((*oRect4).GetDirection().x, (*oRect4).GetDirection().x);
-            (*oRect4).UpdateRotationToMousePosition();
+            sf::Vector2f BallDirection = sf::Vector2f((*oCanon).GetDirection().x, (*oCanon).GetDirection().x);
+            (*oCanon).UpdateRotationToMousePosition();
             inputManager.InputHandler(oEvent, WindowManager::getInstance().GetRenderWindow());
             // -------------------------- //
 
@@ -83,6 +98,10 @@ void GameManager::Game()
 
         //DRAW
         oRenderWindow.clear();
+        
+        (*scoreText).SetText((*scoreText).Concatenation("Score : ", score));
+        (*scoreText).Draw();
+
         WindowManager::getInstance().Update();
         WindowManager::getInstance().Draw();
         oRenderWindow.display();
@@ -90,10 +109,63 @@ void GameManager::Game()
 }
 
 
+void GameManager::InstanciateTab()
+{
+    //Creation grid
+
+    for (int i = 0; i < 40; i++)
+    {
+        Brick* oBrick = new Brick(2, GetLife()[i], i);
+    }
+
+    //Creation cadre
+    Border* oBorderTop = new Border(-10.f, WindowManager::getInstance().GetWindowSize().y * (120.f / 720.f) - 10.f, WindowManager::getInstance().GetWindowSize().x + 20.f, 20.f, 0.f, sf::Color::White, 2, true);
+    Border* oBorderBottom = new Border(-10.f, WindowManager::getInstance().GetWindowSize().y - 10.f, WindowManager::getInstance().GetWindowSize().x + 20.f, +20.f, 0.f, sf::Color::White, 2, false);
+    Border* oBorderLeft = new Border(-10.f, -10.f, 20.f, WindowManager::getInstance().GetWindowSize().y + 20.f, 0.f, sf::Color::White, 2, true);
+    Border* oBorderRight = new Border(WindowManager::getInstance().GetWindowSize().x - 10.f, -10.f, 20.f, WindowManager::getInstance().GetWindowSize().y + 20.f, 0.f, sf::Color::White, 2, true);
+
+    Canon* oCanon = new Canon(WindowManager::getInstance().GetWindowSize().x / 2, WindowManager::getInstance().GetWindowSize().y - 25, 0.f, sf::Color::Magenta, 1);
+    SetCanon(oCanon);
+
+    levelRunning = true;
+}
 
 int* GameManager::GetLife()
 {
 	return lifeOfBrick;
+}
+
+void GameManager::SetLife(int index, int value)
+{
+    lifeOfBrick[index] = value;
+}
+
+void GameManager::DeleteListLife()
+{
+    delete[] lifeOfBrick;
+}
+
+Canon* GameManager::GetCanon()
+{
+    return pCanon;
+}
+
+void GameManager::SetCanon(Canon* canon)
+{
+    pCanon = canon;
+}
+
+bool GameManager::IsWin()
+{
+    for (GameObject* obj : vGameObject)
+    {
+        if (Brick* brick = dynamic_cast<Brick*>(obj))
+        {
+            return false;
+        }
+    }
+    levelRunning = false;
+    return true;
 }
 
 
@@ -141,6 +213,15 @@ void GameManager::update()
 	}
 }
 
+void GameManager::WaitForSeconds(sf::Time temp, sf::Time timeToWait)
+{
+    while (temp <= timeToWait)
+    {
+        deltaTime = clock.restart();
+        temp = temp + deltaTime;
+    }
+}
+
 void GameManager::Add(Ball* obj, int layer)
 {
 	vBall.push_back(obj);
@@ -154,4 +235,28 @@ vector<Ball*>& GameManager::GetListBall()
 void GameManager::DeleteElementOfListBall(std::vector<Ball*>::const_iterator it)
 {
 	vBall.erase(it);
+}
+
+
+int GameManager::GetScore()
+{
+    return score;
+}
+
+void GameManager::SetScore(int newScore)
+{
+    score = newScore;
+}
+
+void GameManager::AddCustomScore(int customScore)
+{
+    score += customScore;
+}
+
+void GameManager::UpdateScore()
+{
+    if (countOfBalls < 20)
+        score += 105 - countOfBalls * 5;
+    else
+        score += 10;
 }

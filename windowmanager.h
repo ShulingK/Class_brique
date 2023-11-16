@@ -16,7 +16,7 @@ private:
     sf::RenderWindow* oWindow;
     sf::Vector2i windowSize;
 
-    WindowManager(int _windowWidth = DEFAULT_WIDTH, int _windowHeight = DEFAULT_HEIGHT, const char* name = "SFML Project");
+    WindowManager(int _windowWidth = DEFAULT_WIDTH, int _windowHeight = DEFAULT_HEIGHT, const char* name = "Class Brick");
 
 public:
     static WindowManager& getInstance()

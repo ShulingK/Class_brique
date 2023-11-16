@@ -44,6 +44,7 @@ void Ball::InCollisionEnter(GameObject* obj)
     {
         brick->DecrementLife();
         brick->SetColor(brick->SetColorBrick(brick->GetLife()));
+        GameManager::getInstance().UpdateScore();
     }
 
     if (Border* border = dynamic_cast<Border*>(obj))
@@ -60,18 +61,23 @@ void Ball::InCollisionEnter(GameObject* obj)
 
 bool Ball::CollisionWithXAxesFaceBecauseWeNeedToKnowThatTheCollisionWorkOnTheXAxes(GameObject* obj)
 {
-    if ( math::IsCloser(GetPosition().x, obj->GetPosition().x, obj->GetPosition().x + obj->GetSize().x ) 
+    if ( math::IsCloser(GetPosition().x, obj->GetPosition().x + obj->GetSize().x, obj->GetPosition().x )
+
         && abs(GetPosition().x - obj->GetPosition().x) < abs(GetPosition().y - obj->GetPosition().y)
+        
         && abs(GetPosition().x - obj->GetPosition().x) < abs(GetPosition().y + GetSize().y - obj->GetPosition().y + obj->GetSize().y)
+        
         || math::IsCloser(GetPosition().x + GetSize().x, obj->GetPosition().x, obj->GetPosition().x + obj->GetSize().x)
+        
         && abs(GetPosition().x + GetSize().x - obj->GetPosition().x) < abs(GetPosition().y + GetSize().y - obj->GetPosition().y)
+        
         && abs(GetPosition().x + GetSize().x - obj->GetPosition().x) < abs(GetPosition().y + GetSize().y - obj->GetPosition().y + obj->GetSize().y))
     {
-        return true;
+        return false;
     }
     else 
     {
-        return false;
+        return true;
     }
 }
 

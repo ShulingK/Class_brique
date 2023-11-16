@@ -11,13 +11,14 @@
 Brick::Brick(int _layerIndex, int _life, int _index)
 	 : GameObject (
 		 OFFSET* WindowManager::getInstance().GetWindowSize().x + (_index % 8 * (BRICK_WIDTH * WindowManager::getInstance().GetWindowSize().x + OFFSET * WindowManager::getInstance().GetWindowSize().x)),
-		 WindowManager::getInstance().GetWindowSize().y - WindowManager::getInstance().GetWindowSize().y * (720 / 600) + OFFSET * 2 * WindowManager::getInstance().GetWindowSize().y + (static_cast<int>(_index / 8)) * (BRICK_HEIGHT * WindowManager::getInstance().GetWindowSize().y + OFFSET * WindowManager::getInstance().GetWindowSize().y),
+		 WindowManager::getInstance().GetWindowSize().y * (120.f / 720.f) + OFFSET * 2 * WindowManager::getInstance().GetWindowSize().y + (static_cast<int>(_index / 8)) * (BRICK_HEIGHT * WindowManager::getInstance().GetWindowSize().y + OFFSET * WindowManager::getInstance().GetWindowSize().y),
 		 BRICK_WIDTH* WindowManager::getInstance().GetWindowSize().x, 
 		 BRICK_HEIGHT* WindowManager::getInstance().GetWindowSize().y, 
 		 0, 
 		 SetColorBrick(_life), 
 		 _layerIndex )
 {
+	std::cout << GetPosition().y << std::endl;
 	CheckInvisibility();
 	index = _index;
 	life = _life;
@@ -48,6 +49,8 @@ sf::Color Brick::SetColorBrick(int _life)
 		break;
 
 	case 0:
+		Brick::~Brick();
+		GameManager::getInstance().IsWin();
 		return sf::Color::Transparent;
 		break;
 
@@ -72,6 +75,7 @@ void Brick::DecrementLife()
 	if (life != 0)
 	{
 		life--;
+		GameManager::getInstance().AddCustomScore(500);
 	}
 	else
 	{

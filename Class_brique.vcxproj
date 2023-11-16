@@ -143,6 +143,7 @@
     <ClCompile Include="inputmanager.cpp" />
     <ClCompile Include="levelmanager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="textmanager.cpp" />
     <ClCompile Include="windowmanager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +155,7 @@
     <ClInclude Include="gameobject.h" />
     <ClInclude Include="inputmanager.h" />
     <ClInclude Include="levelmanager.h" />
+    <ClInclude Include="textmanager.h" />
     <ClInclude Include="windowmanager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -2,6 +2,7 @@
 #include "gameobject.h"
 #include "windowmanager.h"
 #include "brick.h"
+#include "border.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Shape.hpp>
@@ -41,6 +42,11 @@ void Ball::InCollisionEnter(GameObject* obj)
     {
         brick->DecrementLife();
         brick->SetColor(brick->SetColorBrick(brick->GetLife()));
+    }
+
+    if (Border* border = dynamic_cast<Border*>(obj))
+    {
+        
     }
 }
 

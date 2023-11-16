@@ -8,12 +8,12 @@
 #include "ball.h"
 #include "canon.h"
 #include "brick.h"
+#include "border.h"
 
 
 int main(int argc, char** argv)
 {
     //Creation d'une fen�tre
-    //WindowManager* oWindow = new WindowManager();
     sf::RenderWindow& oRenderWindow = WindowManager::getInstance().GetRenderWindow();
 
     //Input
@@ -24,6 +24,13 @@ int main(int argc, char** argv)
     {
         Brick* oBrick = new Brick(2, GameManager::getInstance().GetLife()[i], i);
     }
+    
+    //Creation cadre
+    Border* oBorderTop = new Border(-10.f, -10.f, WindowManager::getInstance().GetWindowSize().x + 20.f, 20.f, 0.f, sf::Color::White, 2, true);
+    Border* oBorderBottom = new Border(10.f, WindowManager::getInstance().GetWindowSize().x + 10.f, WindowManager::getInstance().GetWindowSize().x - 20.f, - 20.f, 0.f, sf::Color::White, 2, false);
+    Border* oBorderLeft = new Border(-10.f, -10.f, 20.f, WindowManager::getInstance().GetWindowSize().y + 20.f, 0.f, sf::Color::White, 2, true);
+    Border* oBorderRight = new Border(WindowManager::getInstance().GetWindowSize().x + 10.f, + 10.f, WindowManager::getInstance().GetWindowSize().x - 20.f, - 20.f, 0.f, sf::Color::White, 2, true);
+    
 
     //Creation GameObject
     

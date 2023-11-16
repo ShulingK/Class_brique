@@ -28,15 +28,14 @@ void Canon::UpdateRotationToMousePosition(float fAnchorX, float fAnchorY)
 
 void Canon::ShootBall()
 {
-	// Cr�er un nouvel objet Ball au centre de la fen�tre
 	Ball* oBall = new Ball(WindowManager::getInstance().GetWindowSize().x / 2, WindowManager::getInstance().GetWindowSize().y - 50, 12.5, 0.f, sf::Color::Blue, 2);
-	//std::cout << "clikouclikou" << std::endl;
-	oBall->SetDirection(GetDirection());
+	
+    oBall->SetDirection(GetDirection());
 	oBall->SetMovement(60.f, oBall->GetDirection ());
 	
 }
 
 Canon::~Canon()
 {
-    // Lib�rer les ressources sp�cifiques � la classe Ball si n�cessaire
+    
 }

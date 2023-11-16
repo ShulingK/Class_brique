@@ -1,30 +1,42 @@
 #pragma once
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include <vector>
 
-const int DEFAULT_WIDTH = 800;
-const int DEFAULT_HEIGHT = 420;
+#define DEFAULT_WIDTH 800
+#define DEFAULT_HEIGHT 420
 
 class GameObject;
 
 class WindowManager
 {
-private : 
-	int windowWidth, windowHeight;
-	const char* name;
-	sf::RenderWindow* oWindow;
+private:
+    int windowWidth, windowHeight;
+    const char* name;
+    sf::RenderWindow* oWindow;
 
-public :
-	WindowManager(int _windowWidth = DEFAULT_WIDTH, int _windowHeight = DEFAULT_HEIGHT, const char* name = "SFML Project");
-	~WindowManager();
+    WindowManager(int _windowWidth = DEFAULT_WIDTH, int _windowHeight = DEFAULT_HEIGHT, const char* name = "SFML Project");
 
-	void Update();
+public:
+    static WindowManager& getInstance()
+    {
+        static WindowManager instance;
+        return instance;
+    }
 
-	sf::RenderWindow& GetRenderWindow();
+    WindowManager(const WindowManager&) = delete;
+    WindowManager& operator=(const WindowManager&) = delete;
 
-	const sf::Vector2i& GetWindowSize();
+    ~WindowManager();
 
-	
-	void Draw();
+    void Update();
+
+    sf::RenderWindow& GetRenderWindow();
+
+    const sf::Vector2i& GetWindowSize();
+
+    void Draw();
 };
+
 

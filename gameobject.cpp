@@ -66,6 +66,7 @@ GameObject::GameObject(float _posX, float _posY, float _width, float _height, fl
 	shape = new sf::RectangleShape (size);
 	shape->setRotation(angle);
 	shape->setFillColor(_color);
+	//shape->setOrigin(45 , 45);
 
 
 	SetPosition(_posX, _posY);
@@ -137,7 +138,7 @@ void GameObject::SetRotation(float newAngle, float fAnchorX, float fAnchorY)
 void GameObject::SetMovement(float _speed, const sf::Vector2f& direction)
 {
 	speed = _speed;
-	SetDirection(direction);
+	SetPosition(posX + direction.x * deltaTime * speed, posY + direction.y * deltaTime * speed);
 }
 
 void GameObject::UpdateMovement()
@@ -300,7 +301,7 @@ void GameObject::setCenter(float centerX, float centerY)
 	// Ajuster l'origine pour placer la forme au centre
 	shape->setOrigin(shape->getLocalBounds().width / 2, shape->getLocalBounds().height / 2);
 
-	// Définir la position en fonction du centre spécifié
+	// Dï¿½finir la position en fonction du centre spï¿½cifiï¿½
 	shape->setPosition(centerX, centerY);
 }
 
@@ -308,16 +309,24 @@ void GameObject::setCenter(float centerX, float centerY)
 
 //void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 
 //{
-//	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-//	sf::Vector2f objectPosition = GetPosition();
-//	float newAngle = std::atan2(mousePosition.y - objectPosition.y, mousePosition.x - objectPosition.x);
-//	angle = newAngle * 180.0f / M_PI;
-//	SetRotation(angle - 90, fAnchorX, fAnchorY);
+//	width = width / 2;
+//	height = height / 2;
+//
+//	// Calculer les coordonnï¿½es du centre
+//	float centerX = posX + width;
+//	float centerY = posY + height;
+//
+//	// Ajuster l'origine pour placer le centre de l'objet au centre de lui-mï¿½me
+//	SetOrigin(centerX, centerY);
 //}
+
+
 
 void GameObject::SetOrigin(float originX, float originY) 
 {
+	//std::cout << originX << " gggg  " << originY << std::endl;
 	shape->setOrigin(originX, originY);
+	
 }
 
 void GameObject::SetColor(sf::Color _color)

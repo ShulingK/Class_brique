@@ -23,7 +23,6 @@ namespace math
 };
 
 
-
 class GameObject
 {
 public :
@@ -76,7 +75,7 @@ public :
 	std::vector<GameObject*> GetCollidedGameObject();
 
 
-	void setCenter(float centerX, float centerY);
+	//void SetCenter(float posX, float posY, float width, float height);
 
 	void SetColor(sf::Color _color);
 
@@ -88,7 +87,7 @@ private :
 	sf::Vector2f size;
 	float angle;
 	sf::Vector2f direction;
-	const WindowManager* oWindow;
+	//const WindowManager* oWindow;
 
 	std::vector<GameObject*> vCollidedGameObject;
 

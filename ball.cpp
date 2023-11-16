@@ -10,18 +10,18 @@
 using namespace math;
 
 
-Ball::Ball(float _posX, float _posY, int _radius, float angle, sf::Color color, WindowManager* oWindow, int _layer)
-    : GameObject(_posX, _posY, _radius, angle, color, _layer),windowManager(oWindow) 
+Ball::Ball(float _posX, float _posY, int _radius, float angle, sf::Color color, int _layer)
+    : GameObject(_posX, _posY, _radius, angle, color, _layer)
 { 
     GameManager::getInstance().Add(this, GetLayerIndex());
 }
 
-void Ball::SetWindowManager(WindowManager* oWindow)
-{
-    windowManager = oWindow;
-}
+//void Ball::SetWindowManager()
+//{
+//    windowManager = oWindow;
+//}
 
-void Ball::SetDefaultPosition(WindowManager* oWindow)
+void Ball::SetDefaultPosition()
 {
     SetPosition(0.f, 0.f);
 }

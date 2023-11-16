@@ -138,7 +138,7 @@ void GameObject::SetRotation(float newAngle, float fAnchorX, float fAnchorY)
 void GameObject::SetMovement(float _speed, const sf::Vector2f& direction)
 {
 	speed = _speed;
-	SetPosition(posX + direction.x * deltaTime * speed, posY + direction.y * deltaTime * speed);
+	SetDirection(direction);
 }
 
 void GameObject::UpdateMovement()
@@ -289,20 +289,6 @@ void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>
 std::vector<GameObject*> GameObject::GetCollidedGameObject()
 {
 	return vCollidedGameObject;
-}
-
-
-
-
-
-
-void GameObject::setCenter(float centerX, float centerY)
-{
-	// Ajuster l'origine pour placer la forme au centre
-	shape->setOrigin(shape->getLocalBounds().width / 2, shape->getLocalBounds().height / 2);
-
-	// D�finir la position en fonction du centre sp�cifi�
-	shape->setPosition(centerX, centerY);
 }
 
 

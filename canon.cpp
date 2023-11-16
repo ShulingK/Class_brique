@@ -25,10 +25,10 @@ void Canon::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAncho
 void Canon::ShootBall(const WindowManager& oWindow)
 {
 	// Cr�er un nouvel objet Ball au centre de la fen�tre
-	Ball* oBall = new Ball(windowManager->GetWindowSize().x / 2, windowManager->GetWindowSize().y - 50, 25, 0.f, sf::Color::Blue, windowManager,2);
+	Ball* oBall = new Ball(windowManager->GetWindowSize().x / 2, windowManager->GetWindowSize().y - 50, 5, 0.f, sf::Color::Blue, windowManager,2);
 	//std::cout << "clikouclikou" << std::endl;
 	oBall->SetDirection(GetDirection());
-	oBall->SetMovement(60.f, oBall->GetDirection (), oWindow);
+	oBall->SetMovement(60.f, oBall->GetDirection ());
 	
 }
 

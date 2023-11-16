@@ -18,6 +18,8 @@ class WindowManager;
 namespace math
 {
 	bool IsInsideInterval(float value, float valueMin, float valueMax);
+	bool IsCloser(int toCompare, int firstMember, int secondMember);
+	bool IsCloser(float toCompare, float firstMember, float secondMember);
 };
 
 
@@ -38,7 +40,7 @@ public :
 
 	// methods
 	sf::Vector2f GetPosition();
-	void SetPosition(float newPosX, float newPosY, const WindowManager& oWindow);
+	void SetPosition(float newPosX, float newPosY);
 
 	const sf::Vector2f& GetSize();
 	int GetRadius();
@@ -54,12 +56,12 @@ public :
 
 	void SetLayerIndex(int newLayerIndex);
 
-	void SetMovement(float speed, const sf::Vector2f& direction, const WindowManager& oWindow);
+	void SetMovement(float speed, const sf::Vector2f& direction);
 	void UpdateMovement();
 
 	const sf::Vector2f& GetDirection();
 	void SetDirection(float newAngle);
-	void SetDirection(sf::Vector2f newDirection);
+	void SetDirection(const sf::Vector2f& newDirection);
 
 	void SetOrigin(float originX, float originY);
 
@@ -83,7 +85,8 @@ public :
 private : 
 
 	int radius = 0, layer;
-	float width = 0, height = 0, angle, posX, posY;
+	sf::Vector2f size;
+	float angle;
 	sf::Vector2f direction;
 	const WindowManager* oWindow;
 

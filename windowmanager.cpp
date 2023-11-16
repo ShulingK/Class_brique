@@ -38,7 +38,7 @@ void WindowManager::Draw()
 {
 	const std::vector<GameObject*>& oVect = GameManager::getInstance().GetListGameObject();
 
-	std::cout << oVect.size() << std::endl;
+	//std::cout << oVect.size() << std::endl;
 
 	for (int i = 0; i < oVect.size(); i++)
 	{

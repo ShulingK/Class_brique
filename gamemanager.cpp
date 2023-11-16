@@ -77,7 +77,7 @@ void GameManager::update()
 			{
 				if (ball->CheckCollision(*obj) == true)
 				{
-					std::cout << "OUI OUI BAGUETTE ";
+					//std::cout << "OUI OUI BAGUETTE ";
 				}
 			}
 		}

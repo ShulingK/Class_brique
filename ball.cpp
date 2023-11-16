@@ -23,12 +23,11 @@ void Ball::SetWindowManager(WindowManager* oWindow)
 
 void Ball::SetDefaultPosition(WindowManager* oWindow)
 {
-    SetPosition(0.f, 0.f, *oWindow);
+    SetPosition(0.f, 0.f);
 }
 
 void Ball::InCollisionEnter(GameObject* obj)
 {
-    GetCollidedGameObject().push_back(obj);
     if (CollisionWithXAxesFaceBecauseWeNeedToKnowThatTheCollisionWorkOnTheXAxes(obj) == true)
     {
         SetDirection(sf::Vector2f(GetDirection().x, GetDirection().y * -1));
@@ -47,12 +46,18 @@ void Ball::InCollisionEnter(GameObject* obj)
 
 bool Ball::CollisionWithXAxesFaceBecauseWeNeedToKnowThatTheCollisionWorkOnTheXAxes(GameObject* obj)
 {
-    if (GetPosition().x > obj->GetPosition().x && GetDirection().y > 0|| GetPosition().x + GetSize().y < obj->GetPosition().x + obj->GetSize().y && GetDirection().y < 0)
+    if ( math::IsCloser(GetPosition().x, obj->GetPosition().x, obj->GetPosition().x + obj->GetSize().x ) 
+        && abs(GetPosition().x - obj->GetPosition().x) < abs(GetPosition().y - obj->GetPosition().y)
+        && abs(GetPosition().x - obj->GetPosition().x) < abs(GetPosition().y + GetSize().y - obj->GetPosition().y + obj->GetSize().y)
+        || math::IsCloser(GetPosition().x + GetSize().x, obj->GetPosition().x, obj->GetPosition().x + obj->GetSize().x)
+        && abs(GetPosition().x + GetSize().x - obj->GetPosition().x) < abs(GetPosition().y + GetSize().y - obj->GetPosition().y)
+        && abs(GetPosition().x + GetSize().x - obj->GetPosition().x) < abs(GetPosition().y + GetSize().y - obj->GetPosition().y + obj->GetSize().y))
     {
         return true;
     }
-    else
+    else 
     {
         return false;
     }
 }
+

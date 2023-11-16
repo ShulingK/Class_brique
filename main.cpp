@@ -29,6 +29,9 @@ int main(int argc, char** argv)
 
     //Creation GameObject
     
+
+    //Brick* obrick = new Brick(2, 5, 21);
+    //Ball* oBall = new Ball(0.f, 0.f, 10, 0.f, sf::Color::Red, oWindow, 2);
     Canon* oRect4 = new Canon(oWindow->GetWindowSize().x / 2, oWindow->GetWindowSize().y - 25, 25.f, 0.f, 25.f,sf::Color::Magenta,oWindow,1);   
 
 
@@ -67,6 +70,8 @@ int main(int argc, char** argv)
                 sf::Vector2i mousePosition = sf::Mouse::getPosition(oRenderWindow);       
             }
         }
+
+        //oBall->SetPosition(sf::Mouse::getPosition(oRenderWindow).x, sf::Mouse::getPosition(oRenderWindow).y);
 
         (*oRect4).UpdateRotationToMousePosition(oRenderWindow);
         inputManager.InputHandler(oEvent, oRenderWindow);

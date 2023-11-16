@@ -1,17 +1,14 @@
 #pragma once
 #include "GameObject.h"
-#include "mousemanager.h"
-
-
 
 class Canon : public GameObject
 {
 public:
     // Constructor
-    Canon(float _posX, float _posY, float _width, float angle, float _height, const sf::Color color, WindowManager* oWindow , int layer);
+    Canon(float _posX, float _posY, float _width, float angle, float _height, const sf::Color color, int layer);
 
-    void UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX = 0.f, float fAnchorY = 0.f);
-    void ShootBall(const WindowManager& oWindow);
+    void UpdateRotationToMousePosition( float fAnchorX = 0.f, float fAnchorY = 0.f);
+    void ShootBall();
 
     // Destructor
     ~Canon();
@@ -20,5 +17,5 @@ public:
 
 private:
     float width = 0, height = 0, angle, posX, posY;
-    WindowManager* windowManager;
+    //WindowManager* windowManager;
 };

@@ -44,6 +44,7 @@ GameObject::GameObject(float _posX, float _posY, float _width, float _height, fl
 	shape->setPosition(posX, posY);
 	shape->setRotation(angle);
 	shape->setFillColor(_color);
+	//shape->setOrigin(45 , 45);
 
 	GameManager::getInstance().Add(this, layer);
 }
@@ -58,15 +59,18 @@ GameObject::~GameObject()
 sf::Vector2f& GameObject::GetPosition()
 {
 	sf::Vector2f position(posX, posY);
+	std::cout << posX << "&&&" << posY << std::endl;
 	return position;
 }
 
-void GameObject::SetPosition(float newPosX, float newPosY, const WindowManager& oWindow)
+void GameObject::SetPosition(float newPosX, float newPosY)
 {
 	posX = newPosX;
 	posY = newPosY;
 
 	shape->setPosition(posX, posY);
+	//SetCenter(posX, posY, GetSize().x /2, GetSize().y/2);
+	
 }
 
 const sf::Vector2f& GameObject::GetSize()
@@ -111,20 +115,19 @@ void GameObject::SetRotation(float newAngle, float fAnchorX, float fAnchorY)
 	SetRotation(newAngle);
 }
 
-void GameObject::SetMovement(float _speed,const sf::Vector2f& direction, const WindowManager& _oWindow)
+void GameObject::SetMovement(float _speed,const sf::Vector2f& direction)
 {
-	oWindow = (&_oWindow);
 	speed = _speed;
 	float deltaTime = GameManager::getInstance().getDeltaTime();
 	SetDirection(direction);
-	SetPosition(posX + direction.x * deltaTime * speed, posY + direction.y * deltaTime * speed, *oWindow);
+	SetPosition(posX + direction.x * deltaTime * speed, posY + direction.y * deltaTime * speed);
 }
 
 void GameObject::UpdateMovement()
 {
 	float deltaTime = GameManager::getInstance().getDeltaTime();
 	SetDirection(direction);
-	SetPosition(posX + direction.x * deltaTime * speed, posY + direction.y * deltaTime * speed, *oWindow);
+	SetPosition(posX + direction.x * deltaTime * speed, posY + direction.y * deltaTime * speed);
 }
 
 
@@ -248,24 +251,24 @@ void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>
 	vCollidedGameObject.erase(it);
 }
 
-void GameObject::SetCenter(float posX, float posY, float width, float height)
-{
-	width = width / 2;
-	height = height / 2;
-
-	// Calculer les coordonnées du centre
-	float centerX = 1.f;
-	float centerY = posY + height + 8456321.f;
-
-	// Ajuster l'origine pour placer le centre de l'objet au centre de lui-même
-	SetOrigin(centerX, centerY);
-}
+//void GameObject::SetCenter(float posX, float posY, float width, float height)
+//{
+//	width = width / 2;
+//	height = height / 2;
+//
+//	// Calculer les coordonnées du centre
+//	float centerX = posX + width;
+//	float centerY = posY + height;
+//
+//	// Ajuster l'origine pour placer le centre de l'objet au centre de lui-même
+//	SetOrigin(centerX, centerY);
+//}
 
 
 
 void GameObject::SetOrigin(float originX, float originY) 
 {
-	std::cout << originX << " gggg  " << originY << std::endl;
+	//std::cout << originX << " gggg  " << originY << std::endl;
 	shape->setOrigin(originX, originY);
 	
 }

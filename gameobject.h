@@ -21,7 +21,6 @@ namespace math
 };
 
 
-
 class GameObject
 {
 public :
@@ -38,7 +37,7 @@ public :
 
 	// methods
 	sf::Vector2f& GetPosition();
-	void SetPosition(float newPosX, float newPosY, const WindowManager& oWindow);
+	void SetPosition(float newPosX, float newPosY);
 
 	const sf::Vector2f& GetSize();
 	int GetRadius();
@@ -54,7 +53,7 @@ public :
 
 	void SetLayerIndex(int newLayerIndex);
 
-	void SetMovement(float speed, const sf::Vector2f& direction, const WindowManager& oWindow);
+	void SetMovement(float speed, const sf::Vector2f& direction);
 	void UpdateMovement();
 
 	const sf::Vector2f& GetDirection();
@@ -72,7 +71,7 @@ public :
 	virtual void InCollisionStay(const GameObject* obj);
 	virtual void InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it);
 
-	void SetCenter(float posX, float posY, float width, float height);
+	//void SetCenter(float posX, float posY, float width, float height);
 
 	//void UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX = 0.f, float fAnchorY = 0.f); // canon
 	float speed = 0.f;
@@ -81,7 +80,7 @@ private :
 	int radius = 0, layer;
 	float width = 0, height = 0, angle, posX, posY;
 	sf::Vector2f direction;
-	const WindowManager* oWindow;
+	//const WindowManager* oWindow;
 
 	std::vector<GameObject*> vCollidedGameObject;
 

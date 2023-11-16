@@ -5,3 +5,8 @@ Border::Border(float _posX, float _posY, float _width, float angle, float _heigh
 {
     isBouceable = _isBounceable;
 }
+
+bool Border::GetBounceable()
+{
+    return isBouceable;
+}

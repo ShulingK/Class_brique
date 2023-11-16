@@ -44,7 +44,7 @@ namespace math
 
 
 // constructor
-GameObject::GameObject(float _posX, float _posY, int _radius, float _angle, const sf::Color& _color, int _layerIndex)
+GameObject::GameObject(float _posX, float _posY, float _radius, float _angle, const sf::Color& _color, int _layerIndex)
 {
 	radius = _radius, angle = _angle, layer = _layerIndex, size.x = _radius * 2, size.y = _radius * 2;
 	direction.x = std::cos(angle * M_PI / 180.0);
@@ -70,7 +70,6 @@ GameObject::GameObject(float _posX, float _posY, float _width, float _height, fl
 
 
 	SetPosition(_posX, _posY);
-	//std::cout << GetPosition().x << " et " << GetPosition().y << std::endl;
 
 	GameManager::getInstance().Add(this, layer);
 }
@@ -84,7 +83,6 @@ GameObject::~GameObject()
 // Methods Get / Set Variables
 sf::Vector2f GameObject::GetPosition()
 {
-	//std::cout << std::endl << "position en x" << position.x << std::endl;
 	return shape->getPosition();
 }
 
@@ -98,7 +96,7 @@ const sf::Vector2f& GameObject::GetSize()
 	return size;
 }
 
-int GameObject::GetRadius()
+float GameObject::GetRadius()
 {
 	return radius;
 }
@@ -156,7 +154,6 @@ void GameObject::UpdateMovement()
 
 const sf::Vector2f& GameObject::GetDirection()
 {
-	//std::cout << "direction" << std::endl;
 	return direction;
 }
 
@@ -244,7 +241,6 @@ bool GameObject::CheckCollision( GameObject& obj) {
 		{
 			if (it == vCollidedGameObject.end())
 			{
-				//std::cout << "collide " << std::endl;
 				vCollidedGameObject.push_back(&obj);
 				InCollisionEnter(&obj);
 				return true;
@@ -277,7 +273,7 @@ void GameObject::InCollisionEnter( GameObject* obj)
 
 void GameObject::InCollisionStay(const GameObject* obj)
 {
-	std::cout << "collision Stay ! " << std::endl;
+	//std::cout << "collision Stay ! " << std::endl;
 }	
 
 void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it)
@@ -310,12 +306,20 @@ std::vector<GameObject*> GameObject::GetCollidedGameObject()
 
 void GameObject::SetOrigin(float originX, float originY) 
 {
-	//std::cout << originX << " gggg  " << originY << std::endl;
 	shape->setOrigin(originX, originY);
-	
 }
 
 void GameObject::SetColor(sf::Color _color)
 {
 	shape->setFillColor(_color);
+}
+
+float GameObject::GetSpeed()
+{
+	return speed; 
+}
+
+void GameObject::SetSpeed(float _speed)
+{
+	speed = _speed;
 }

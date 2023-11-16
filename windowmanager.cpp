@@ -5,16 +5,16 @@
 
 WindowManager::WindowManager(int _windowWidth, int _windowHeight, const char* _name)
 {
-    windowWidth = _windowWidth, windowHeight = _windowHeight;
+    windowSize.x = _windowWidth, windowSize.y = _windowHeight;
     name = _name;
 
-    oWindow = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), name);
+    oWindow = new sf::RenderWindow(sf::VideoMode(windowSize.x, windowSize.y), name);
 }
 
 void WindowManager::Update()
 {
-    windowWidth = oWindow->getSize().x;
-    windowHeight = oWindow->getSize().y;
+    windowSize.x = oWindow->getSize().x;
+    windowSize.y = oWindow->getSize().y;
 }
 
 sf::RenderWindow& WindowManager::GetRenderWindow()
@@ -24,15 +24,12 @@ sf::RenderWindow& WindowManager::GetRenderWindow()
 
 const sf::Vector2i& WindowManager::GetWindowSize()
 {
-    return sf::Vector2i(windowWidth, windowHeight);
+    return windowSize;
 }
 
 void WindowManager::Draw()
 {
     const std::vector<GameObject*>& oVect = GameManager::getInstance().GetListGameObject();
-
-	//std::cout << oVect.size() << std::endl;
-    //std::cout << oVect.size() << std::endl;
 
     for (int i = 0; i < oVect.size(); i++)
     {

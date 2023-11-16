@@ -5,7 +5,7 @@ class Canon : public GameObject
 {
 public:
     // Constructor
-    Canon(float _posX, float _posY, float _width, float angle, float _height, const sf::Color color, int layer);
+    Canon(float _posX, float _posY, float angle, const sf::Color color, int layer);
 
     void UpdateRotationToMousePosition( float fAnchorX = 0.f, float fAnchorY = 0.f);
     void ShootBall();

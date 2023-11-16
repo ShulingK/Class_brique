@@ -1,18 +1,23 @@
 #include "brick.h"
 #include "gamemanager.h"
-
+#include "windowmanager.h"
 #include <iostream>
 
-#define BRICK_WIDTH 70
-#define BRICK_HEIGHT 30
+#define BRICK_WIDTH 0.1025f
+#define BRICK_HEIGHT 0.0666f
 
-#define OFFSET 20
+#define OFFSET 0.02f
 
 Brick::Brick(int _layerIndex, int _life, int _index)
-	 : GameObject(OFFSET + (_index % 8 * (BRICK_WIDTH + OFFSET)), OFFSET + (static_cast<int>(_index / 8)) * (BRICK_HEIGHT + OFFSET), BRICK_WIDTH, BRICK_HEIGHT, 0, SetColorBrick(_life), _layerIndex)
+	 : GameObject (
+		 OFFSET* WindowManager::getInstance().GetWindowSize().x + (_index % 8 * (BRICK_WIDTH * WindowManager::getInstance().GetWindowSize().x + OFFSET * WindowManager::getInstance().GetWindowSize().x)),
+		 WindowManager::getInstance().GetWindowSize().y - WindowManager::getInstance().GetWindowSize().y * (720 / 600) + OFFSET * 2 * WindowManager::getInstance().GetWindowSize().y + (static_cast<int>(_index / 8)) * (BRICK_HEIGHT * WindowManager::getInstance().GetWindowSize().y + OFFSET * WindowManager::getInstance().GetWindowSize().y),
+		 BRICK_WIDTH* WindowManager::getInstance().GetWindowSize().x, 
+		 BRICK_HEIGHT* WindowManager::getInstance().GetWindowSize().y, 
+		 0, 
+		 SetColorBrick(_life), 
+		 _layerIndex )
 {
-	std::cout << OFFSET + (static_cast<int>(_index / 8) + 1) * (BRICK_WIDTH + OFFSET) << std::endl;
-	std::cout << OFFSET + (static_cast<int>(_index / 5) + 1) * (BRICK_HEIGHT + OFFSET) << std::endl;
 	index = _index;
 	life = _life;
 }

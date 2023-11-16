@@ -27,15 +27,15 @@ int main(int argc, char** argv)
     
     //Creation cadre
     Border* oBorderTop = new Border(-10.f, -10.f, WindowManager::getInstance().GetWindowSize().x + 20.f, 20.f, 0.f, sf::Color::White, 2, true);
-    Border* oBorderBottom = new Border(10.f, WindowManager::getInstance().GetWindowSize().x + 10.f, WindowManager::getInstance().GetWindowSize().x - 20.f, - 20.f, 0.f, sf::Color::White, 2, false);
+    Border* oBorderBottom = new Border(-10.f, WindowManager::getInstance().GetWindowSize().y - 10.f, WindowManager::getInstance().GetWindowSize().x + 20.f, + 20.f, 0.f, sf::Color::White, 2, false);
     Border* oBorderLeft = new Border(-10.f, -10.f, 20.f, WindowManager::getInstance().GetWindowSize().y + 20.f, 0.f, sf::Color::White, 2, true);
-    Border* oBorderRight = new Border(WindowManager::getInstance().GetWindowSize().x + 10.f, + 10.f, WindowManager::getInstance().GetWindowSize().x - 20.f, - 20.f, 0.f, sf::Color::White, 2, true);
+    Border* oBorderRight = new Border(WindowManager::getInstance().GetWindowSize().x - 10.f, - 10.f, 20.f, WindowManager::getInstance().GetWindowSize().y + 20.f, 0.f, sf::Color::White, 2, true);
     
+    std::cout << WindowManager::getInstance().GetWindowSize().x << "  et  " << WindowManager::getInstance().GetWindowSize().y << std::endl;
 
     //Creation GameObject
     
-    Canon* oRect4 = new Canon(WindowManager::getInstance().GetWindowSize().x / 2, WindowManager::getInstance().GetWindowSize().y - 25, 50.f, 0.f, 25.f, sf::Color::Magenta,  1);
-    //std::cout << (*oRect4).GetPosition().x << "&&&" << (*oRect4).GetPosition().y << std::endl;
+    Canon* oRect4 = new Canon(WindowManager::getInstance().GetWindowSize().x / 2, WindowManager::getInstance().GetWindowSize().y - 25, 0.f, sf::Color::Magenta,  1);
 
 
     bool mouseClicked = false;
@@ -52,7 +52,6 @@ int main(int argc, char** argv)
             {
                 mouseClicked = true;
                 (*oRect4).ShootBall();
-                std::cout << mouseClicked << std::endl;
             }
 
             //oRect4->SetCenter(WindowManager::getInstance().GetRenderWindow().getSize().x / 2, WindowManager::getInstance().GetRenderWindow().getSize().y / 2);

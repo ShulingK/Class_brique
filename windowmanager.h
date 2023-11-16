@@ -4,17 +4,17 @@
 #include <SFML/Window/Mouse.hpp>
 #include <vector>
 
-#define DEFAULT_WIDTH 800
-#define DEFAULT_HEIGHT 420
+#define DEFAULT_WIDTH 1080
+#define DEFAULT_HEIGHT 720
 
 class GameObject;
 
 class WindowManager
 {
 private:
-    int windowWidth, windowHeight;
     const char* name;
     sf::RenderWindow* oWindow;
+    sf::Vector2i windowSize;
 
     WindowManager(int _windowWidth = DEFAULT_WIDTH, int _windowHeight = DEFAULT_HEIGHT, const char* name = "SFML Project");
 

@@ -28,7 +28,7 @@ class GameObject
 public :
 
 	// Constructor
-	GameObject(float _posX, float _posY, int _radius, float angle, const sf::Color& _color, int _layerIndex = 0);
+	GameObject(float _posX, float _posY, float _radius, float angle, const sf::Color& _color, int _layerIndex = 0);
 	
 	GameObject(float _posX, float _posY, float _width, float angle, float _height, const sf::Color& _color, int _layerIndex = 0);
 
@@ -42,7 +42,7 @@ public :
 	void SetPosition(float newPosX, float newPosY);
 
 	const sf::Vector2f& GetSize();
-	int GetRadius();
+	float GetRadius();
 
 	void SetSize(float newWidth, float newHeight);
 	void SetSize(int newRadius);
@@ -79,13 +79,19 @@ public :
 
 	void SetColor(sf::Color _color);
 
+	float GetSpeed();
+
+	void SetSpeed(float _speed);
+
+
+
 	//void UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX = 0.f, float fAnchorY = 0.f); // canon
-	float speed = 0.f;
 private : 
 
-	int radius = 0, layer;
+	int layer;
+	float angle, radius = 0.f, speed = 0.f;
+	
 	sf::Vector2f size;
-	float angle;
 	sf::Vector2f direction;
 	//const WindowManager* oWindow;
 

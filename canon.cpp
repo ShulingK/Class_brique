@@ -5,9 +5,12 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+#define CANON_WIDTH 0.06f
+#define CANON_HEIGHT 0.03f
 
-Canon::Canon(float _posX, float _posY, float _width, float angle, float _height, const sf::Color color ,int layer)
-    : GameObject(_posX, _posY, _width, _height, angle, color )
+
+Canon::Canon(float _posX, float _posY, float angle, const sf::Color color, int layer)
+    : GameObject(_posX, _posY, WindowManager::getInstance().GetWindowSize().x * CANON_WIDTH, WindowManager::getInstance().GetWindowSize().x* CANON_HEIGHT, angle, color)
 {
 	
 }
@@ -28,10 +31,10 @@ void Canon::UpdateRotationToMousePosition(float fAnchorX, float fAnchorY)
 
 void Canon::ShootBall()
 {
-	Ball* oBall = new Ball(WindowManager::getInstance().GetWindowSize().x / 2, WindowManager::getInstance().GetWindowSize().y - 50, 12.5, 0.f, sf::Color::Blue, 2);
+	Ball* oBall = new Ball(GetPosition().x, GetPosition().y - 50.f, 0.f, sf::Color::Blue, 2);
 	
     oBall->SetDirection(GetDirection());
-	oBall->SetMovement(60.f, oBall->GetDirection ());
+	oBall->SetMovement(200.f, oBall->GetDirection ());
 	
 }
 

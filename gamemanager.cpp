@@ -77,7 +77,7 @@ void GameManager::update()
 			{
 				if (ball->CheckCollision(*obj) == true)
 				{
-					//std::cout << "OUI OUI BAGUETTE ";
+
 				}
 			}
 		}
@@ -92,4 +92,9 @@ void GameManager::Add(Ball* obj, int layer)
 vector<Ball*>& GameManager::GetListBall()
 {
 	return vBall;
+}
+
+void GameManager::DeleteElementOfListBall(std::vector<Ball*>::const_iterator it)
+{
+	vBall.erase(it);
 }

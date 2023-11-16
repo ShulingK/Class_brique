@@ -10,9 +10,11 @@
 
 using namespace math;
 
+#define BALL_RADIUS 0.01f
 
-Ball::Ball(float _posX, float _posY, int _radius, float angle, sf::Color color, int _layer)
-    : GameObject(_posX, _posY, _radius, angle, color, _layer)
+
+Ball::Ball(float _posX, float _posY, float angle, sf::Color color, int _layer)
+    : GameObject(_posX, _posY, WindowManager::getInstance().GetWindowSize().x * BALL_RADIUS, angle, color, _layer)
 { 
     GameManager::getInstance().Add(this, GetLayerIndex());
 }
@@ -46,7 +48,13 @@ void Ball::InCollisionEnter(GameObject* obj)
 
     if (Border* border = dynamic_cast<Border*>(obj))
     {
-        
+        if (!border->GetBounceable())
+        {
+            auto itGameObject = std::find(GameManager::getInstance().GetListGameObject().begin(), GameManager::getInstance().GetListGameObject().end(), this);
+            GameManager::getInstance().DeleteElementOfListGameObejct(itGameObject);
+            auto itBall = std::find(GameManager::getInstance().GetListBall().begin(), GameManager::getInstance().GetListBall().end(), this);
+            GameManager::getInstance().DeleteElementOfListBall(itBall);
+        }
     }
 }
 

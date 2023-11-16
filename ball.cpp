@@ -1,6 +1,7 @@
 #include "ball.h"
 #include "gameobject.h"
 #include "windowmanager.h"
+#include "brick.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Shape.hpp>
@@ -27,9 +28,31 @@ void Ball::SetDefaultPosition()
 
 void Ball::InCollisionEnter(GameObject* obj)
 {
-    std::cout << vCollidedGameObject.size() << std::endl;
-    vCollidedGameObject.push_back(obj);
-    if (GetPosition().x <= 0 || GetPosition().x + GetSize().x >= 800){
+    GetCollidedGameObject().push_back(obj);
+    if (CollisionWithXAxesFaceBecauseWeNeedToKnowThatTheCollisionWorkOnTheXAxes(obj) == true)
+    {
+        SetDirection(sf::Vector2f(GetDirection().x, GetDirection().y * -1));
+    }
+    else
+    {
         SetDirection(sf::Vector2f(GetDirection().x * -1, GetDirection().y));
+    }
+
+    if (Brick* brick = dynamic_cast<Brick*>(obj))
+    {
+        brick->DecrementLife();
+        brick->SetColor(brick->SetColorBrick(brick->GetLife()));
+    }
+}
+
+bool Ball::CollisionWithXAxesFaceBecauseWeNeedToKnowThatTheCollisionWorkOnTheXAxes(GameObject* obj)
+{
+    if (GetPosition().x > obj->GetPosition().x && GetDirection().y > 0|| GetPosition().x + GetSize().y < obj->GetPosition().x + obj->GetSize().y && GetDirection().y < 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }

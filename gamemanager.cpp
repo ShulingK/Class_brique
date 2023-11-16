@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "gameobject.h"
 #include "ball.h"
 
@@ -56,20 +57,29 @@ const vector<GameObject*>& GameManager::GetListGameObject()
 	return vGameObject;
 }
 
+void GameManager::DeleteElementOfListGameObejct(std::vector<GameObject*>::const_iterator it)
+{
+	vGameObject.erase(it);
+}
+
 void GameManager::update()
 {
 	deltaTime = clock.restart();
-	//cout << vGameObject.size() << std::endl;
+	
 	for (GameObject* obj : vGameObject) 
 	{
-		//std::cout << obj->GetDirection().x << " et speed : " << obj->speed << std::endl;
 		(*obj).UpdateMovement();
-
-		//cout << vBall.size();
 
 		for (Ball* ball : vBall)
 		{
-			ball->CheckCollision(*obj);
+
+			if (ball != obj)
+			{
+				if (ball->CheckCollision(*obj) == true)
+				{
+					std::cout << "OUI OUI BAGUETTE ";
+				}
+			}
 		}
 	}
 }

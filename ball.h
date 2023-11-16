@@ -14,6 +14,9 @@ public:
 
     void InCollisionEnter(GameObject* obj) override;
 
+    bool CollisionWithXAxesFaceBecauseWeNeedToKnowThatTheCollisionWorkOnTheXAxes(GameObject* obj);
+
+
 private:
     sf::Vector2f defaultPosition;
     

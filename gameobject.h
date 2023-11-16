@@ -70,8 +70,12 @@ public :
 	virtual void InCollisionEnter( GameObject* obj);
 	virtual void InCollisionStay(const GameObject* obj);
 	virtual void InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it);
+	std::vector<GameObject*> GetCollidedGameObject();
+
 
 	//void SetCenter(float posX, float posY, float width, float height);
+
+	void SetColor(sf::Color _color);
 
 	//void UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX = 0.f, float fAnchorY = 0.f); // canon
 	float speed = 0.f;

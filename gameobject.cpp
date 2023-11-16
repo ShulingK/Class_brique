@@ -18,8 +18,6 @@ namespace math
 };
 
 
-/* ------------------- ATTENTION -------------------- */
-
 
 // constructor
 GameObject::GameObject(float _posX, float _posY, int _radius, float _angle, const sf::Color& _color, int _layerIndex)
@@ -46,6 +44,9 @@ GameObject::GameObject(float _posX, float _posY, float _width, float _height, fl
 	shape->setFillColor(_color);
 	//shape->setOrigin(45 , 45);
 
+
+	//std::cout << GetPosition().x << " et " << GetPosition().y << std::endl;
+
 	GameManager::getInstance().Add(this, layer);
 }
 
@@ -56,10 +57,10 @@ GameObject::~GameObject()
 }
 
 // Methods Get / Set Variables
-sf::Vector2f& GameObject::GetPosition()
+sf::Vector2f GameObject::GetPosition()
 {
 	sf::Vector2f position(posX, posY);
-	std::cout << posX << "&&&" << posY << std::endl;
+	//std::cout << std::endl << "position en x" << position.x << std::endl;
 	return position;
 }
 
@@ -67,7 +68,6 @@ void GameObject::SetPosition(float newPosX, float newPosY)
 {
 	posX = newPosX;
 	posY = newPosY;
-
 	shape->setPosition(posX, posY);
 	//SetCenter(posX, posY, GetSize().x /2, GetSize().y/2);
 	
@@ -141,16 +141,16 @@ void GameObject::SetDirection(float newAngle)
 {
 	direction.x = std::cos(newAngle * M_PI / 180.0);
 	direction.y = std::sin(newAngle * M_PI / 180.0);
-	angle = newAngle;
-	SetRotation(angle);
+	/*angle = newAngle;
+	SetRotation(angle);*/
 }
 
 void GameObject::SetDirection(sf::Vector2f newDirection)
 {
 	direction = newDirection;
-	float angle_radians = std::atan2(newDirection.y, newDirection.x);
+	/*float angle_radians = std::atan2(newDirection.y, newDirection.x);
 	angle = angle_radians * 180.0f / M_PI;
-	SetRotation(angle);
+	SetRotation(angle);*/
 }
 
 int GameObject::GetLayerIndex()
@@ -178,11 +178,14 @@ const sf::Drawable& GameObject::GetDrawable()
 
 bool GameObject::CheckCollision( GameObject& obj) {
 
-	sf::Vector2f positionShape1 = GetPosition();
-	sf::Vector2f sizeShape1 = GetSize();
-	sf::Vector2f positionShape2 = obj.GetShape()->getPosition();
-	sf::Vector2f sizeShape2 = obj.GetSize();
+	const sf::Vector2f positionShape1 = GetPosition();
+	const sf::Vector2f sizeShape1 = GetSize();
+	const sf::Vector2f positionShape2 = obj.GetShape()->getPosition();
+	const sf::Vector2f sizeShape2 = obj.GetSize();
  
+	//std::cout << "GetPosition : " << posX << "(" << GetPosition().x << ")" << "   " << posY << "(" << GetPosition().x << ")" << "     Obj " << "GetPosition : " << obj.GetPosition().x << "   " << obj.GetPosition().y << std::endl;
+
+
 	if ( GetLayerIndex() == obj.GetLayerIndex())
 	{
 
@@ -219,15 +222,25 @@ bool GameObject::CheckCollision( GameObject& obj) {
 		std::vector<GameObject*>::iterator it = std::find(vCollidedGameObject.begin(), vCollidedGameObject.end(), &obj);
 		if (isCollidedOnX == true && isCollidedOnY == true)
 		{
-			
-			if (it != vCollidedGameObject.end())
+			if (it == vCollidedGameObject.end())
+			{
+				std::cout << "collide " << std::endl;
 				InCollisionEnter(&obj);
-			else InCollisionStay(&obj);
+				return true;
+			}
+			else 
+			{
+				std::cout << "stay " << std::endl;
+				InCollisionStay(&obj);
+				return true;
+			}
 		}
 		else
 		{
 			if (it != vCollidedGameObject.end())
-				InCollisionExit(&obj,it);
+			{
+				InCollisionExit(&obj, it);
+			}
 		}
 
 		return false;
@@ -251,16 +264,37 @@ void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>
 	vCollidedGameObject.erase(it);
 }
 
-//void GameObject::SetCenter(float posX, float posY, float width, float height)
+std::vector<GameObject*> GameObject::GetCollidedGameObject()
+{
+	return vCollidedGameObject;
+}
+
+
+
+
+
+
+void GameObject::setCenter(float centerX, float centerY)
+{
+	// Ajuster l'origine pour placer la forme au centre
+	shape->setOrigin(shape->getLocalBounds().width / 2, shape->getLocalBounds().height / 2);
+
+	// Dï¿½finir la position en fonction du centre spï¿½cifiï¿½
+	shape->setPosition(centerX, centerY);
+}
+
+
+
+//void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 
 //{
 //	width = width / 2;
 //	height = height / 2;
 //
-//	// Calculer les coordonnées du centre
+//	// Calculer les coordonnï¿½es du centre
 //	float centerX = posX + width;
 //	float centerY = posY + height;
 //
-//	// Ajuster l'origine pour placer le centre de l'objet au centre de lui-même
+//	// Ajuster l'origine pour placer le centre de l'objet au centre de lui-mï¿½me
 //	SetOrigin(centerX, centerY);
 //}
 
@@ -273,3 +307,7 @@ void GameObject::SetOrigin(float originX, float originY)
 	
 }
 
+void GameObject::SetColor(sf::Color _color)
+{
+	shape->setFillColor(_color);
+}

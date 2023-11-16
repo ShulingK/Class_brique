@@ -17,8 +17,8 @@ public:
         return deltaTime.asSeconds();
     }
 
+    void Game();
 
-    void LevelLoader(const char* path);
     int* GetLife();
 
 

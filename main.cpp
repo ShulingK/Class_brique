@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 
     //Input
     InputManager inputManager(oRenderWindow);
-    GameManager::getInstance().LevelLoader("Level1.txt");
+    GameManager::getInstance().LevelLoader("Level\\Level1.txt");
 
     for (int i = 0; i < 40; i++)
     {
@@ -36,7 +36,6 @@ int main(int argc, char** argv)
     //Creation GameObject
     
     Canon* oRect4 = new Canon(WindowManager::getInstance().GetWindowSize().x / 2, WindowManager::getInstance().GetWindowSize().y - 25, 0.f, sf::Color::Magenta,  1);
-
 
     bool mouseClicked = false;
     //GameLoop

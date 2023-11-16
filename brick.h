@@ -9,6 +9,8 @@ public:
 
 	sf::Color SetColorBrick(int _life);
 
+	void CheckInvisibility();
+
 	int GetLife();
 	void SetLife(int _life);
 	void DecrementLife();

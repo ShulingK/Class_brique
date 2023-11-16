@@ -18,6 +18,7 @@ Brick::Brick(int _layerIndex, int _life, int _index)
 		 SetColorBrick(_life), 
 		 _layerIndex )
 {
+	CheckInvisibility();
 	index = _index;
 	life = _life;
 }
@@ -47,7 +48,6 @@ sf::Color Brick::SetColorBrick(int _life)
 		break;
 
 	case 0:
-		Brick::~Brick();
 		return sf::Color::Transparent;
 		break;
 
@@ -76,6 +76,14 @@ void Brick::DecrementLife()
 	else
 	{
 		std::cout << "ERROR 404" << std::endl;
+	}
+}
+
+void Brick::CheckInvisibility()
+{
+	if (GetShape()->getFillColor() == sf::Color::Transparent)
+	{
+		delete this;
 	}
 }
 

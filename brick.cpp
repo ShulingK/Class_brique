@@ -18,7 +18,6 @@ Brick::Brick(int _layerIndex, int _life, int _index)
 		 SetColorBrick(_life), 
 		 _layerIndex )
 {
-	std::cout << GetPosition().y << std::endl;
 	CheckInvisibility();
 	index = _index;
 	life = _life;

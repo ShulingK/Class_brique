@@ -1,8 +1,10 @@
 #include "textmanager.h"
 
 #include <sstream>
+#include <iostream>
 #include <string>
 
+// Constructeur
 TextManager::TextManager(const char* fontPath, unsigned int characterSize, sf::Color color, float posX, float posY) 
 {
     if (!font.loadFromFile(fontPath)) {
@@ -15,6 +17,7 @@ TextManager::TextManager(const char* fontPath, unsigned int characterSize, sf::C
     SetPosition(posX, posY);
 }
 
+// Methods
 void TextManager::SetText(sf::String content) {
     text.setString(content);
 }
@@ -27,6 +30,8 @@ void TextManager::Draw() {
     WindowManager::getInstance().GetRenderWindow().draw(text);
 }
 
+
+/* fais la concaténation enter un texte et un int */
 sf::String TextManager::Concatenation(const char* firstPart, int secondPart)
 {
     std::ostringstream oss;

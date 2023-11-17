@@ -1,12 +1,10 @@
 #include "gameobject.h"
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Shape.hpp>
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "gamemanager.h"
 #include "windowmanager.h"
 
+/* Fonctions mathématiques */
 namespace math
 {
 	bool IsInsideInterval(float value, float valueMin, float valueMax)
@@ -44,6 +42,7 @@ namespace math
 
 
 // constructor
+/* Cercle */
 GameObject::GameObject(float _posX, float _posY, float _radius, float _angle, const sf::Color& _color, int _layerIndex)
 {
 	radius = _radius, angle = _angle, layer = _layerIndex, size.x = _radius * 2, size.y = _radius * 2;
@@ -59,6 +58,7 @@ GameObject::GameObject(float _posX, float _posY, float _radius, float _angle, co
 	GameManager::getInstance().Add(this, layer);
 }
 
+/* Carré */
 GameObject::GameObject(float _posX, float _posY, float _width, float _height, float _angle, const sf::Color& _color, int _layerIndex)
 {
 	size.x = _width, size.y = _height, angle = _angle, layer = _layerIndex, radius = 0;
@@ -66,8 +66,6 @@ GameObject::GameObject(float _posX, float _posY, float _width, float _height, fl
 	shape = new sf::RectangleShape (size);
 	shape->setRotation(angle);
 	shape->setFillColor(_color);
-	//shape->setOrigin(45 , 45);
-
 
 	SetPosition(_posX, _posY);
 
@@ -80,7 +78,8 @@ GameObject::~GameObject()
 	delete shape;
 }
 
-// Methods Get / Set Variables
+
+// Methods 
 sf::Vector2f GameObject::GetPosition()
 {
 	return shape->getPosition();
@@ -90,6 +89,7 @@ void GameObject::SetPosition(float newPosX, float newPosY)
 {
 	shape->setPosition(newPosX, newPosY);
 }
+
 
 const sf::Vector2f& GameObject::GetSize()
 {
@@ -115,6 +115,7 @@ void GameObject::SetSize(int newRadius)
 	shape->setScale(newRadius, newRadius);
 }
 
+
 float GameObject::GetRotation()
 {
 	return angle;
@@ -132,23 +133,15 @@ void GameObject::SetRotation(float newAngle, float fAnchorX, float fAnchorY)
 	SetRotation(newAngle);
 }
 
-//TODO SetSpeed
-void GameObject::SetMovement(float _speed, const sf::Vector2f& direction)
+
+float GameObject::GetSpeed()
 {
-	speed = _speed;
-	SetDirection(direction);
+	return speed;
 }
 
-void GameObject::UpdateMovement()
+void GameObject::SetSpeed(float _speed)
 {
-	float deltaTime = GameManager::getInstance().getDeltaTime();
-	
-	sf::Vector2f position = GetPosition();
-
-	float fNewX = position.x + direction.x * deltaTime * speed;
-	float fNewY = position.y + direction.y * deltaTime * speed;
-
-	SetPosition(fNewX, fNewY);
+	speed = _speed;
 }
 
 
@@ -161,18 +154,14 @@ void GameObject::SetDirection(float newAngle)
 {
 	direction.x = std::cos(newAngle * M_PI / 180.0);
 	direction.y = std::sin(newAngle * M_PI / 180.0);
-	/*angle = newAngle;
-	SetRotation(angle);*/
 }
 
 void GameObject::SetDirection(const sf::Vector2f& newDirection)
 {
 	direction = newDirection;
-	/*float angle_radians = std::atan2(newDirection.y, newDirection.x);
-	angle = angle_radians * 180.0f / M_PI;
-	SetRotation(angle);*/
 }
 
+/* utilisation de layer pour filtrer les collisions et gérer l'ordre d'affichage */
 int GameObject::GetLayerIndex()
 {
 	return layer;
@@ -182,6 +171,7 @@ void GameObject::SetLayerIndex(int newLayerIndex)
 {
 	layer = newLayerIndex;
 }
+
 
 const sf::Shape* GameObject::GetShape()
 {
@@ -195,7 +185,39 @@ const sf::Drawable& GameObject::GetDrawable()
 }
 
 
+void GameObject::SetOrigin(float originX, float originY)
+{
+	shape->setOrigin(originX, originY);
+}
 
+
+void GameObject::SetColor(sf::Color _color)
+{
+	shape->setFillColor(_color);
+}
+
+/* Attribue la speed et la direction */
+void GameObject::SetMovement(float _speed, const sf::Vector2f& direction)
+{
+	speed = _speed;
+	SetDirection(direction);
+}
+
+/* Actualise le mouvement de l'objet à chaque frame */
+void GameObject::UpdateMovement()
+{
+	float deltaTime = GameManager::getInstance().getDeltaTime();
+	
+	sf::Vector2f position = GetPosition();
+
+	float fNewX = position.x + direction.x * deltaTime * speed;
+	float fNewY = position.y + direction.y * deltaTime * speed;
+
+	SetPosition(fNewX, fNewY);
+}
+
+
+/* teste les collisions avec l'objet en paramètre depuis tous les sommets */
 bool GameObject::CheckCollision( GameObject& obj) {
 
 	const sf::Vector2f positionShape1 = GetPosition();
@@ -268,7 +290,7 @@ bool GameObject::CheckCollision( GameObject& obj) {
 
 void GameObject::InCollisionEnter( GameObject* obj)
 {
-	std::cout << "collision Enter ! " << std::endl;
+	//std::cout << "collision Enter ! " << std::endl;
 }
 
 void GameObject::InCollisionStay(const GameObject* obj)
@@ -278,7 +300,7 @@ void GameObject::InCollisionStay(const GameObject* obj)
 
 void GameObject::InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it)
 {
-	std::cout << "collision Exit ! " << std::endl;
+	//std::cout << "collision Exit ! " << std::endl;
 
 }
 
@@ -287,39 +309,3 @@ std::vector<GameObject*> GameObject::GetCollidedGameObject()
 	return vCollidedGameObject;
 }
 
-
-
-//void GameObject::UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX, float fAnchorY) 
-//{
-//	width = width / 2;
-//	height = height / 2;
-//
-//	// Calculer les coordonn�es du centre
-//	float centerX = posX + width;
-//	float centerY = posY + height;
-//
-//	// Ajuster l'origine pour placer le centre de l'objet au centre de lui-m�me
-//	SetOrigin(centerX, centerY);
-//}
-
-
-
-void GameObject::SetOrigin(float originX, float originY) 
-{
-	shape->setOrigin(originX, originY);
-}
-
-void GameObject::SetColor(sf::Color _color)
-{
-	shape->setFillColor(_color);
-}
-
-float GameObject::GetSpeed()
-{
-	return speed; 
-}
-
-void GameObject::SetSpeed(float _speed)
-{
-	speed = _speed;
-}

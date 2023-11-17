@@ -3,6 +3,7 @@
 #include "gamemanager.h"
 #include "gameobject.h"
 
+// Constructeur
 WindowManager::WindowManager(int _windowWidth, int _windowHeight, const char* _name)
 {
     windowSize.x = _windowWidth, windowSize.y = _windowHeight;
@@ -11,6 +12,14 @@ WindowManager::WindowManager(int _windowWidth, int _windowHeight, const char* _n
     oWindow = new sf::RenderWindow(sf::VideoMode(windowSize.x, windowSize.y), name);
 }
 
+// Destructeur
+WindowManager::~WindowManager()
+{
+    oWindow->close();
+}
+
+
+// Methods 
 void WindowManager::Update()
 {
     windowSize.x = oWindow->getSize().x;
@@ -35,9 +44,4 @@ void WindowManager::Draw()
     {
         oWindow->draw(oVect[i]->GetDrawable());
     }
-}
-
-WindowManager::~WindowManager()
-{
-    oWindow->close();
 }

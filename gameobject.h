@@ -5,15 +5,14 @@
 
 #include <vector>
 
+class WindowManager;
+
 namespace sf
 {
 	class Shape;
 	class Drawable;
 	class RenderWindow;
 };
-
-
-class WindowManager;
 
 namespace math
 {
@@ -37,13 +36,12 @@ public :
 	~GameObject();
 
 
-	// methods
+	// Methods
 	sf::Vector2f GetPosition();
 	void SetPosition(float newPosX, float newPosY);
 
 	const sf::Vector2f& GetSize();
 	float GetRadius();
-
 	void SetSize(float newWidth, float newHeight);
 	void SetSize(int newRadius);
 
@@ -51,21 +49,26 @@ public :
 	void SetRotation(float newAngle);
 	void SetRotation(float newAngle, float fAnchorX, float fAnchorY);
 	
+	float GetSpeed();
+	void SetSpeed(float _speed);
+	
+	const sf::Vector2f& GetDirection();
+	void SetDirection(float newAngle);
+	void SetDirection(const sf::Vector2f& newDirection);
+	
 	int GetLayerIndex();
-
 	void SetLayerIndex(int newLayerIndex);
+	//
+	const sf::Shape* GetShape();
+	const sf::Drawable& GetDrawable();
+
+	void SetColor(sf::Color _color);
+
+	void SetOrigin(float originX, float originY);
 
 	void SetMovement(float speed, const sf::Vector2f& direction);
 	void UpdateMovement();
 
-	const sf::Vector2f& GetDirection();
-	void SetDirection(float newAngle);
-	void SetDirection(const sf::Vector2f& newDirection);
-
-	void SetOrigin(float originX, float originY);
-
-	const sf::Shape* GetShape();
-	const sf::Drawable& GetDrawable();
 
 	bool CheckCollision( GameObject& obj);
 	
@@ -74,26 +77,12 @@ public :
 	virtual void InCollisionExit(const GameObject* obj, std::vector<GameObject*>::iterator it);
 	std::vector<GameObject*> GetCollidedGameObject();
 
-
-	//void SetCenter(float posX, float posY, float width, float height);
-
-	void SetColor(sf::Color _color);
-
-	float GetSpeed();
-
-	void SetSpeed(float _speed);
-
-
-
-	//void UpdateRotationToMousePosition(sf::RenderWindow& window, float fAnchorX = 0.f, float fAnchorY = 0.f); // canon
 private : 
 
 	int layer;
 	float angle, radius = 0.f, speed = 0.f;
 	
-	sf::Vector2f size;
-	sf::Vector2f direction;
-	//const WindowManager* oWindow;
+	sf::Vector2f size, direction;
 
 	std::vector<GameObject*> vCollidedGameObject;
 

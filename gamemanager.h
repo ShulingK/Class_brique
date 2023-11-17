@@ -5,9 +5,7 @@
 
 namespace sf {
     class RenderWindow;
-
 }
-
 
 class GameObject;
 class Ball;
@@ -34,6 +32,11 @@ public:
 
     bool IsWin();
 
+    int GetScore();
+    void SetScore(int newScore);
+    void AddCustomScore(int customScore);
+    void UpdateScore();
+
     int* GetLife();
     void SetLife(int index, int value);
 
@@ -52,12 +55,6 @@ public:
 
     std::vector<Ball*>& GetListBall();
 
-    int GetScore();
-
-    void SetScore(int newScore);
-
-    void AddCustomScore(int customScore);
-    void UpdateScore();
 
 private:
     GameManager() {}

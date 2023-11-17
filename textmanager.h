@@ -16,7 +16,11 @@ public :
 
     void Draw();
 
-    sf::String Concatenation(const char* firstPart, int secondPart);
+    sf::String Concatenation(const char* firstPart, const int& secondPart);
+
+    int ReadFile(const char* path);
+    void WriteFile(const char* path, int newBestScore);
+
 
 private:
     sf::Font font;

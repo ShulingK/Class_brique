@@ -19,10 +19,6 @@ Ball::Ball(float _posX, float _posY, float angle, sf::Color color, int _layer)
     GameManager::getInstance().Add(this, GetLayerIndex());
 }
 
-//void Ball::SetWindowManager()
-//{
-//    windowManager = oWindow;
-//}
 
 void Ball::SetDefaultPosition()
 {

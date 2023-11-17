@@ -9,9 +9,6 @@ public :
 
 	bool GetBounceable();
 
-	/*void InCollisionEnter(GameObject* obj) override;
-	bool CollisionWithXAxesFaceBecauseWeNeedToKnowThatTheCollisionWorkOnTheXAxes(GameObject* obj);*/
-
 private : 
 
 	bool isBouceable;

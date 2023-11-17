@@ -58,7 +58,7 @@ public :
 	
 	int GetLayerIndex();
 	void SetLayerIndex(int newLayerIndex);
-	//
+	
 	const sf::Shape* GetShape();
 	const sf::Drawable& GetDrawable();
 

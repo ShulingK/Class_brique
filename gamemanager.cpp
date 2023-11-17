@@ -35,18 +35,20 @@ void GameManager::Game()
         vBall.clear();
         oRenderWindow.clear();
         
+
+        //load Scene
+        lvlManager->LevelLoader(countOfLevel);
+
+
         //Text between scenes
-        TextManager _text("Font\\NovaSquare-Regular.ttf", WindowManager::getInstance().GetWindowSize().y / 4, sf::Color::Cyan, 0  + WindowManager::getInstance().GetWindowSize().x / 6, WindowManager::getInstance().GetWindowSize().y* 3 / 8);
-        _text.SetText(_text.Concatenation("Level ", (countOfBalls + 1)));
+        TextManager _text("Font\\NovaSquare-Regular.ttf", WindowManager::getInstance().GetWindowSize().y / 4, sf::Color::White, 0  + WindowManager::getInstance().GetWindowSize().x / 6, WindowManager::getInstance().GetWindowSize().y* 3 / 8);
+        countOfLevel++;
+        _text.SetText(_text.Concatenation("Level ", countOfLevel));
         _text.Draw();
         oRenderWindow.display();
         sf::Time temp = sf::seconds(.0f);
         WaitForSeconds(temp, sf::seconds(5.0f));
 
-        //load Scene
-        lvlManager->LevelLoader(countOfLevel);
-        countOfLevel++;
-        
         
         InstanciateTab();
 
@@ -54,9 +56,31 @@ void GameManager::Game()
         sf::Vector2i wSize = WindowManager::getInstance().GetWindowSize();
         scoreText = new TextManager("Font\\NovaSquare-Regular.ttf", wSize.y * 40 / 720, sf::Color::White, 40, 10 + wSize.y * 20 / 720);
         GameLoop(oRenderWindow, GetCanon(), inputManager);
-
-        cout << countOfLevel << endl;
     }
+
+    oRenderWindow.clear();
+
+
+    TextManager* finalScore = new TextManager("Font\\NovaSquare-Regular.ttf", WindowManager::getInstance().GetWindowSize().y / 10, sf::Color::White, 40, 10 + WindowManager::getInstance().GetWindowSize().y * 2 / 5);
+    (*finalScore).SetText((*finalScore).Concatenation("Score : ", score));
+    (*finalScore).Draw();
+
+    TextManager* bestScore = new TextManager("Font\\NovaSquare-Regular.ttf", WindowManager::getInstance().GetWindowSize().y / 10, sf::Color::White, 40, 10 + WindowManager::getInstance().GetWindowSize().y * 3 / 5);
+    if (bestScore->ReadFile("BestScore.txt") < score)
+    {
+        bestScore->WriteFile("BestScore.txt", score);
+        (*bestScore).SetText(bestScore->Concatenation("Best Score : ", score));
+    }
+    else
+    {
+        (*bestScore).SetText(bestScore->Concatenation("Best Score : ", bestScore->ReadFile("BestScore.txt")));
+    }
+
+    bestScore->Draw();
+
+    oRenderWindow.display();
+    sf::Time temp = sf::seconds(.0f);
+    WaitForSeconds(temp, sf::seconds(5.0f));
 }
 
 
@@ -87,11 +111,9 @@ void GameManager::GameLoop(sf::RenderWindow& oRenderWindow, Canon* oCanon, Input
             }
 
             
-            // ----- autre fonction ----- // 
             sf::Vector2f BallDirection = sf::Vector2f((*oCanon).GetDirection().x, (*oCanon).GetDirection().x);
             (*oCanon).UpdateRotationToMousePosition();
             inputManager.InputHandler(oEvent, WindowManager::getInstance().GetRenderWindow());
-            // -------------------------- //
 
         }
 
